@@ -28,7 +28,7 @@ namespace CandidateCont.Controllers
 
         // POST api/values
         [HttpPost]
-        public ActionResult<string> Post(Candidate can)
+        public ActionResult<string> Post([FromBody] Candidate can)
         {
             return "Post Not Working";
         }

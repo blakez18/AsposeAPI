@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using Companys.Models;
 
 namespace CompanyCont.Controllers
 {
@@ -28,7 +29,7 @@ namespace CompanyCont.Controllers
         [HttpPost]
         public ActionResult<string> Post([FromBody] Company comp)
         {
-            return 'Post Not Working'
+            return "Post Not Working";
         }
 
         // PUT api/values/5
@@ -41,7 +42,7 @@ namespace CompanyCont.Controllers
         [HttpDelete("{id}")]
         public ActionResult<string> Delete(int compId)
         {
-            return 'Delete Not Working'
+            return "Delete Not Working";
         }
     }
 }

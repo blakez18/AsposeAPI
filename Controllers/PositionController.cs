@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using Positions.Models;
 
 namespace PositionCont.Controllers
 {
@@ -28,7 +29,7 @@ namespace PositionCont.Controllers
         [HttpPost]
         public ActionResult<string> Post([FromBody] Position pos)
         {
-            return 'Post Not Working'
+            return "Post Not Working";
         }
 
         // PUT api/values/5
@@ -41,7 +42,7 @@ namespace PositionCont.Controllers
         [HttpDelete("{id}")]
         public ActionResult<string> Delete(int posId)
         {
-            return 'Delete Not Working'
+            return "Delete Not Working";
         }
     }
 }
