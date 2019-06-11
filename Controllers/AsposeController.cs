@@ -1,7 +1,9 @@
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace aspose.Controllers
@@ -12,25 +14,19 @@ namespace aspose.Controllers
     {
         // Get api/aspose
         [HttpGet]
-        public async Task<IActionResult> Post(List<IFormFile> files)
+        public async Task<IActionResult> Post(IFormFile file)
         {
             if (file == null || file.Length == 0)
-                return Content('File not selected')
+                return Content("File not selected");
 
-            var path = Path.Combine(
-                Directory.GetCurrentDirectory(), 'wwwroot', file.GetFilename());
+            var path = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", file.FileName);
 
-                using (var stream = new FileStream(path, FileMode.Create))
-                    await file.CopyToAsync(stream);
+            using (var stream = new FileStream(path, FileMode.Create))
+                await file.CopyToAsync(stream);
             
             // do something with the stream
 
-            return "File Uploaded"
+            return null;
         }
-
-        [HttpGet]
-
-        // [HttpPost]
-        // public asyn Task<I
     }
 }
