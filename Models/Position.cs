@@ -1,6 +1,8 @@
+using System.ComponentModel.DataAnnotations;
+using System.Collections.Generic;
+using Microsoft.EntityFrameworkCore;
 using System;
-
-namespace Position.Models
+namespace Positions.Models
 {
     public class Position
     {

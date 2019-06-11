@@ -1,6 +1,8 @@
+using System.ComponentModel.DataAnnotations;
 using System.Collections.Generic;
+using Microsoft.EntityFrameworkCore;
 
-namespace Company.Models
+namespace Companys.Models
 {
     public class Company
     {
