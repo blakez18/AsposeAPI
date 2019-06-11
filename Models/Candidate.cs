@@ -1,8 +1,10 @@
+using System.ComponentModel.DataAnnotations;
 using System.Collections.Generic;
+using Microsoft.EntityFrameworkCore;
 
-namespace Candidates.Models
+namespace Candidate.Models
 {
-    public class Candidates
+    public class CandidateContext
     {
         public int CandidateID {get; set;}
         public string FName {get; set;}

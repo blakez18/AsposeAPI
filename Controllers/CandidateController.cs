@@ -2,7 +2,9 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Mvc;
+using Candidate.Models;
 
 namespace Candidate.Controllers
 {
@@ -26,9 +28,9 @@ namespace Candidate.Controllers
 
         // POST api/values
         [HttpPost]
-        public ActionResult<string> Post([FromBody] Candidate can)
+        public ActionResult<string> Post(Candidate can)
         {
-            return 'Post Not Working'
+            return "Post Not Working";
         }
 
         // PUT api/values/5
