@@ -11,7 +11,8 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
-using Candidate.Models;
+using Candidates.Models;
+using AsposeDB.persistence;
 
 namespace AsposeAPI
 {
@@ -27,8 +28,7 @@ namespace AsposeAPI
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddDbContext<CandidateContext>(opt =>
-                opt.UseInMemoryDatabase("Candidate"));
+            services.AddDbContext<CandidateDbContext>(options => options.UseSqlServer(Configuration.GetConnectionString("Default")));            
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
         }
 

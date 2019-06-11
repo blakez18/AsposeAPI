@@ -4,9 +4,9 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Mvc;
-using Candidate.Models;
+using Candidates.Models;
 
-namespace Candidate.Controllers
+namespace CandidateCont.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
@@ -43,7 +43,7 @@ namespace Candidate.Controllers
         [HttpDelete("{id}")]
         public ActionResult<string> Delete(int posId)
         {
-            return 'Delete Not Working'
+            return "Delete Not Working";
         }
     }
 }
