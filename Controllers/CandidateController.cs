@@ -12,34 +12,34 @@ namespace CandidateCont.Controllers
     [ApiController]
     public class CandidateController : ControllerBase
     {
-        // GET api/values
+        // GET api/CandidateCont
         [HttpGet]
         public ActionResult<IEnumerable<string>> Get()
         {
             return new string[] { "value1", "value2" };
         }
 
-        // GET api/values/5
+        // GET api/CandidateCont/5
         [HttpGet("{id}")]
         public ActionResult<string> Get(int canID)
         {
             return "Get Not Working";
         }
 
-        // POST api/values
+        // POST api/CandidateCont
         [HttpPost]
         public ActionResult<string> Post([FromBody] Candidate can)
         {
             return "Post Not Working";
         }
 
-        // PUT api/values/5
+        // PUT api/CandidateCont/5
         // [HttpPut("{id}")]
         // public void Put(int id, [FromBody] string value)
         // {
         // }
 
-        // DELETE api/values/5
+        // DELETE api/CandidateCont/5
         [HttpDelete("{id}")]
         public ActionResult<string> Delete(int posId)
         {

@@ -12,34 +12,34 @@ namespace CompanyCont.Controllers
     [ApiController]
     public class CompanyController : ControllerBase
     {
-        // GET api/values
+        // GET api/CompanyCont
         [HttpGet]
         public ActionResult<IEnumerable<string>> Get()
         {
             return new string[] { "value1", "value2" };
         }
 
-        // GET api/values/5
+        // GET api/CompanyCont/5
         [HttpGet("{id}")]
         public ActionResult<string> Get(int posID)
         {
             return "Get Not Working";
         }
 
-        // POST api/values
+        // POST api/CompanyCont
         [HttpPost]
         public ActionResult<string> Post([FromBody] Company comp)
         {
             return "Post Not Working";
         }
 
-        // PUT api/values/5
+        // PUT api/CompanyCont/5
         // [HttpPut("{id}")]
         // public void Put(int id, [FromBody] string value)
         // {
         // }
 
-        // DELETE api/values/5
+        // DELETE api/CompanyCont/5
         [HttpDelete("{id}")]
         public ActionResult<string> Delete(int compId)
         {
