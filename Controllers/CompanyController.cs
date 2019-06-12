@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Companys.Models;
 using Microsoft.EntityFrameworkCore;
+using AsposeDB.persistence;
 
 namespace CompanyCont.Controllers
 {
