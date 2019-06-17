@@ -13,7 +13,7 @@ using Companys.Models;
 using Candidates.Models;
 using EPPService.Service;
 
-namespace EPLUSPLUSCont.Controllers
+namespace eppcont.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
@@ -21,7 +21,7 @@ namespace EPLUSPLUSCont.Controllers
     {
         // Get api/aspose
         [HttpGet]
-        public async Task<IActionResult> Post(IFormFile file)
+        public async Task<IActionResult> FileUploader(IFormFile file)
         {
             if (file == null || file.Length == 0)
                 return Content("File not selected");
@@ -36,41 +36,47 @@ namespace EPLUSPLUSCont.Controllers
         }
 
         [HttpPost]
-        public string Post()
+        public tempJson JsonToWB()
         {
             tempJson tempjson = new tempJson();
             EPlusPlus epp = new EPlusPlus();
 
             tempjson = GetAndConvJson(tempjson);
-            epp.EPPSetup(tempjson);
-            return "working";
+
+            return tempjson;
+            //epp.EPPSetup(tempjson);
+            //return "working";
         }
 
         public tempJson GetAndConvJson(tempJson tj)
         {
             // Set Path
-            const string posPath = "../Json/Position.json";
-            const string compPath = "../Json/Company.json";
-            const string canPath = "../Json/Candiate.json";
+            string posPath = Path.Combine(Directory.GetCurrentDirectory(), "Json", "Position.json");
+            string compPath = Path.Combine(Directory.GetCurrentDirectory(), "Json", "Company.json");
+            string canPath = Path.Combine(Directory.GetCurrentDirectory(), "Json", "Candidate.json");
             List<string> paths = new List<string> { posPath, compPath, canPath };
-            paths.ForEach(x =>
-            {
-                using (StreamReader r = new StreamReader(x))
-                {
-                    switch (x)
-                    {
-                        case posPath:
-                            tj.position = JsonConvert.DeserializeObject<List<Position>>(r.ReadToEnd());
-                            break;
-                        case compPath:
-                            tj.company = JsonConvert.DeserializeObject<List<Company>>(r.ReadToEnd());
-                            break;
-                        case canPath:
-                            tj.candidate = JsonConvert.DeserializeObject<List<Candidate>>(r.ReadToEnd());
-                            break;
-                    }
-                }
-            });
+            
+            using (StreamReader r = new StreamReader(posPath))            
+                tj.position = JsonConvert.DeserializeObject<List<Position>>(r.ReadToEnd());
+            
+            using (StreamReader r = new StreamReader(compPath))            
+                tj.company = JsonConvert.DeserializeObject<List<Company>>(r.ReadToEnd());
+
+            using (StreamReader r = new StreamReader(posPath))            
+                tj.position = JsonConvert.DeserializeObject<List<Position>>(r.ReadToEnd());
+            // paths.ForEach(x =>
+            // {
+            //     using (StreamReader r = new StreamReader(x))
+            //     {
+            //         if (x == posPath) {
+            //                 tj.position = JsonConvert.DeserializeObject<List<Position>>(r.ReadToEnd());
+            //         } else if (x == compPath) {
+            //                 tj.company = JsonConvert.DeserializeObject<List<Company>>(r.ReadToEnd());
+            //         } else if (x == canPath) {
+            //                 tj.candidate = JsonConvert.DeserializeObject<List<Candidate>>(r.ReadToEnd());
+            //         }
+            //     }
+            // });            
             return tj;
         }
 

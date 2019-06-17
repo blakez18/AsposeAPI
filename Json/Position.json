@@ -1,5 +1,5 @@
-{
-    "Position": [
+
+    [  
         {
             "PositionId": 1123456,
             "CompanyId": 2123456,
@@ -65,4 +65,3 @@
             "MaxSalary": 70000.00
         }
     ] 
-}
