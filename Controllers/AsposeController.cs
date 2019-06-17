@@ -11,6 +11,7 @@ using System.Linq;
 using TempJson.Models;
 using Companys.Models;
 using Candidates.Models;
+using AsposeService.Service;
 
 namespace aspose.Controllers
 {
@@ -22,8 +23,6 @@ namespace aspose.Controllers
         [HttpGet]
         public async Task<IActionResult> Post(IFormFile file)
         {
-            tempJson tempjson = new tempJson();
-            tempjson = GetAndConvJson(tempjson);
             if (file == null || file.Length == 0)
                 return Content("File not selected");
             // Get CSV File
@@ -31,6 +30,17 @@ namespace aspose.Controllers
 
             using (var stream = new FileStream(path, FileMode.Create))
                 await file.CopyToAsync(stream);
+
+            
+            return null;
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Post()
+        {
+            tempJson tempjson = new tempJson();
+            tempjson = GetAndConvJson(tempjson);
+            AsposeExcel test = new AsposeExcel();
             return null;
         }
 
