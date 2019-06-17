@@ -1,0 +1,68 @@
+{
+    "Position": [
+        {
+            "PositionId": 1123456,
+            "CompanyId": 2123456,
+            "CandidateId": [3123456],
+            "PositionName": "Test Position One",
+            "Description": "Description One",
+            "StartDate": "01-01-2019",
+            "EndDate": "01-02-2019",
+            "Status": 0,
+            "MinSalary": 60000.00,
+            "MaxSalary": 70000.00
+
+        },
+        {
+            "PositionId": 2123456,
+            "CompanyId": 2123456,
+            "CandidateId": [3123456],
+            "PositionName": "Test Position Two",
+            "Description": "Description Two",
+            "StartDate": "01-02-2019",
+            "EndDate": "01-03-2019",
+            "Status": 0,
+            "MinSalary": 60000.00,
+            "MaxSalary": 70000.00
+
+        },
+        {
+            "PositionId": 3123456,
+            "CompanyId": 32123456,
+            "CandidateId": [3123456],
+            "PositionName": "Test Position Three",
+            "Description": "Description Three",
+            "StartDate": "01-03-2019",
+            "EndDate": "01-04-2019",
+            "Status": 0,
+            "MinSalary": 60000.00,
+            "MaxSalary": 70000.00
+
+        },
+        {
+            "PositionId": 4123456,
+            "CompanyId": 4123456,
+            "CandidateId": [3123456],
+            "PositionName": "Test Position One",
+            "Description": "Description One",
+            "StartDate": "01-04-2019",
+            "EndDate": "01-05-2019",
+            "Status": 0,
+            "MinSalary": 60000.00,
+            "MaxSalary": 70000.00
+
+        },
+        {
+            "PositionId": 123456,
+            "CompanyId": 2123456,
+            "CandidateId": [3123456],
+            "PositionName": "Test Position One",
+            "Description": "Description One",
+            "StartDate": "01-06-2019",
+            "EndDate": "01-07-2019",
+            "Status": 0,
+            "MinSalary": 60000.00,
+            "MaxSalary": 70000.00
+        }
+    ] 
+}

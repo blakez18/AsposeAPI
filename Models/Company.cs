@@ -13,8 +13,8 @@ namespace Companys.Models
         public string City {get; set;}
         public string State {get; set;}
         public string Zip {get; set;}
-        public int Placement_Fee {get; set;}
-        public int Fee_Collected {get;set;}
+        public double Placement_Fee {get; set;}
+        public double Fee_Collected {get;set;}
         public string Email {get; set;}
         public long mainNumb {get; set;}
         public List<int> PositionID {get; set;}
