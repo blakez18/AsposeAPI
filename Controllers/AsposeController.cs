@@ -39,8 +39,9 @@ namespace aspose.Controllers
         public async Task<IActionResult> Post()
         {
             tempJson tempjson = new tempJson();
-            tempjson = GetAndConvJson(tempjson);
             AsposeExcel test = new AsposeExcel();
+            tempjson = GetAndConvJson(tempjson);
+            test.AsposeSetup(tempjson);
             return null;
         }
 
