@@ -1,6 +1,6 @@
-namespace AsposeAPI.Service
+namespace EPPService.Service
 {
-    public class EPPService
+    public class EPlusPlus
     {
         
     }
