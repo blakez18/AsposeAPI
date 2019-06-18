@@ -21,64 +21,63 @@ namespace Master.Controllers
         // Example route: https://localhost:5001/Master/FiletoEPPlus
         // Under this controller you will create routes to the service for various package examples
         #endregion Namespace_Details
-        
+
         #region Aspose
         //=== File Uploader ===//
-        public string FiletoAspose(IFormFile file)// GET /Master/FiletoAspose
+        public async Task<IActionResult> FiletoAspose(IFormFile file) // GET /Master/FiletoAspose
         {
-            // if (file == null || file.Length == 0)
-            //     return Content("File not selected");
-            // // Get CSV File
-            // var path = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", file.FileName);
+            if (file == null || file.Length == 0)
+                return Content("File not selected");
+            // Get CSV File
+            var path = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", file.FileName);
 
-            // using (var stream = new FileStream(path, FileMode.Create))
-            //     await file.CopyToAsync(stream);
+            using (var stream = new FileStream(path, FileMode.Create))
+                await file.CopyToAsync(stream);
 
-            return "working";
-        }
+            return null;
+        }        
 
-        //=== Json Converter ===//
-        public string JsonToAspose() // GET /Master/JsonToAspose
+        //=== Json  ===/
+        public tempJson JsonToAspose() // GET /Master/JsonToAspose
         {
             // Declarations
             tempJson tempjson = new tempJson();
             EPlusPlus epp = new EPlusPlus();
-            return "working";
+
             tempjson = GetAndConvJson(tempjson); // Call tempJson and convert
             return epp.EPPSetup(tempjson); // Create workbook
         }
         #endregion Aspose
-        
+
         #region EPPlus
         //=== File Uploader ===//
-        public string FiletoEPPlus(IFormFile file)
+        public async Task<IActionResult> FiletoEPPlus(IFormFile file) // GET /Master/FiletoEPPlus
         {
-            // if (file == null || file.Length == 0)
-            //     return Content("File not selected");
-            // // Get CSV File
-            // var path = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", file.FileName);
+            if (file == null || file.Length == 0)
+                return Content("File not selected");
+            // Get CSV File
+            var path = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", file.FileName);
 
-            // using (var stream = new FileStream(path, FileMode.Create))
-            //     await file.CopyToAsync(stream);
+            using (var stream = new FileStream(path, FileMode.Create))
+                await file.CopyToAsync(stream);
 
-            return "working";
+            return null;
         }
 
-        //=== Json Converter ===//
-
-        public string JsonToEPPlus()
+        //=== Json ==//
+        public tempJson JsonToEPPlus() // GET Master/JsonToEPPlus
         {
             // Declarations
             tempJson tempjson = new tempJson();
             EPlusPlus epp = new EPlusPlus();
-            return "working";
+
             tempjson = GetAndConvJson(tempjson); // Call tempJson and convert
             return epp.EPPSetup(tempjson); // Create workbook
         }
         #endregion EPPlus
 
         #region Functions
-        //=============== JSON Function ================//
+        //=== Json Converter ===//
         public tempJson GetAndConvJson(tempJson tj) // Converts json file to list<>
         {
             // Set Path
