@@ -22,7 +22,6 @@ namespace EPPService.Service
                         ws.Cells["A1"].LoadFromText(fi, format);
                         WStoExport(ws);
                     }
-
                     break;
                 case ".csv":
 
