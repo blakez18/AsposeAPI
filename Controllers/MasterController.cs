@@ -27,16 +27,14 @@ namespace Master.Controllers
         //=== File Uploader ===//
         public async Task<IActionResult> FiletoAspose(IFormFile file) // GET /Master/FiletoAspose
         {
+            AsposeExcel service = new AsposeExcel();
+
             if (file == null || file.Length == 0)
                 return Content("File not selected");
-            // Get CSV File
-            var path = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", file.FileName);
-
-            using (var stream = new FileStream(path, FileMode.Create))
-                await file.CopyToAsync(stream);
-
+            FileInfo fi = new FileInfo(file.FileName);
+            var data = service.AsposeFiletoWB(fi, file);
             return null;
-        }        
+        }
 
         //=== Json  ===/
         public tempJson JsonToAspose() // GET /Master/JsonToAspose
@@ -54,14 +52,13 @@ namespace Master.Controllers
         //=== File Uploader ===//
         public async Task<IActionResult> FiletoEPPlus(IFormFile file) // GET /Master/FiletoEPPlus
         {
+            EPlusPlus service = new EPlusPlus();
+
             if (file == null || file.Length == 0)
                 return Content("File not selected");
-            // Get CSV File
-            var path = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", file.FileName);
 
-            using (var stream = new FileStream(path, FileMode.Create))
-                await file.CopyToAsync(stream);
-
+            FileInfo fi = new FileInfo(file.FileName);
+            var data = service.EPPFiletoWS(fi, file);
             return null;
         }
 
