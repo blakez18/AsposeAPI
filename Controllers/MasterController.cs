@@ -46,7 +46,7 @@ namespace Master.Controllers
             AsposeExcel service = new AsposeExcel();
 
             tempjson = GetAndConvJson(tempjson); // Call tempJson and convert
-            return service.AsposeSetup(tempjson); // Create workbook
+            return service.AsposeJsontoWB(tempjson); // Create workbook
         }
         #endregion Aspose
 
@@ -73,7 +73,7 @@ namespace Master.Controllers
             EPlusPlus eppService = new EPlusPlus();
 
             tempjson = GetAndConvJson(tempjson); // Call tempJson and convert
-            return eppService.EPPSetup(tempjson); // Create workbook
+            return eppService.EPPJsontoWS(tempjson); // Create workbook
         }
         #endregion EPPlus
 

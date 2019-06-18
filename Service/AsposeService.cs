@@ -5,10 +5,14 @@ namespace AsposeService.Service
 {
     public class AsposeExcel
     {
-        public tempJson AsposeSetup(tempJson tj)
+        public tempJson AsposeJsontoWB(tempJson tj)
         {
             
             return null;
+        }
+
+        public void AsposeFiletoWB() {
+
         }
     }
 }

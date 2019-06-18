@@ -4,11 +4,14 @@ namespace EPPService.Service
 {
     public class EPlusPlus
     {
-        
-
-        public tempJson EPPSetup(tempJson tj)
+        public tempJson EPPJsontoWS(tempJson tj)
         {
             return null;
+        }
+
+        public void EPPFiletoWS()
+        {
+
         }
     }
 }
