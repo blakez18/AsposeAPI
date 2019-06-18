@@ -29,7 +29,7 @@ namespace AsposeAPI
         public void ConfigureServices(IServiceCollection services)
         {
             // TODO: update connection string;
-            services.AddDbContext<CandidateDbContext>(options => options.UseSqlServer(Configuration.GetConnectionString("Default")));            
+            services.AddDbContext<CandidateDbContext>(options => options.UseSqlServer(Configuration.GetConnectionString("Default")));
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
         }
 
@@ -47,7 +47,12 @@ namespace AsposeAPI
             }
 
             app.UseHttpsRedirection();
-            app.UseMvc();
+            app.UseMvc(routes =>
+            {
+                routes.MapRoute(
+                    name: "default",
+                    template: "{controller=Home}/{action=Index}/{id?}");
+            });
         }
     }
 }

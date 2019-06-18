@@ -1,0 +1,72 @@
+[
+        {
+            "CompanyId": 1123456,
+            "CompanyName": "Co.Name 1",
+            "Address_1": "12345 Temp Lane",
+            "Address_2": "",
+            "City": "Willloughby",
+            "State": "OH",
+            "Zip": "44094",
+            "Placement_Fee": 10000.00,
+            "Fee_Collected": 0.00,
+            "Email": "coOne@test.com",
+            "mainNumb": 12312312345,
+            "PositionId": [1123456]
+        },
+        {
+            "CompanyId": 2123456,
+            "CompanyName": "Co.Name 2",
+            "Address_1": "12345 Temp Lane",
+            "Address_2": "",
+            "City": "Willloughby",
+            "State": "OH",
+            "Zip": "44094",
+            "Placement_Fee": 10000.00,
+            "Fee_Collected": 0.00,
+            "Email": "coOne@test.com",
+            "mainNumb": 12312312345,
+            "PositionId": [2123456]
+        },
+        {
+            "CompanyId": 3123456,
+            "CompanyName": "Co.Name 3",
+            "Address_1": "12345 Temp Lane",
+            "Address_2": "",
+            "City": "Willloughby",
+            "State": "OH",
+            "Zip": "44094",
+            "Placement_Fee": 10000.00,
+            "Fee_Collected": 0.00,
+            "Email": "coOne@test.com",
+            "mainNumb": 12312312345,
+            "PositionId": [3123456]
+        },
+        {
+            "CompanyId": 4123456,
+            "CompanyName": "Co.Name 4",
+            "Address_1": "12345 Temp Lane",
+            "Address_2": "",
+            "City": "Willloughby",
+            "State": "OH",
+            "Zip": "44094",
+            "Placement_Fee": 10000.00,
+            "Fee_Collected": 0.00,
+            "Email": "coOne@test.com",
+            "mainNumb": 12312312345,
+            "PositionId": [4123456]
+        },
+        {
+            "CompanyId": 5123456,
+            "CompanyName": "Co.Name 1",
+            "Address_1": "12345 Temp Lane",
+            "Address_2": "",
+            "City": "Willloughby",
+            "State": "OH",
+            "Zip": "44094",
+            "Placement_Fee": 10000.00,
+            "Fee_Collected": 0.00,
+            "Email": "coOne@test.com",
+            "mainNumb": 12312312345,
+            "PositionId": [5123456]
+        }
+    ]

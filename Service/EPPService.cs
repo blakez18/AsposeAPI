@@ -1,19 +1,20 @@
+using System.Linq;
 using TempJson.Models;
-using Aspose.Cells;
 using Microsoft.AspNetCore.Http;
 using System.IO;
 using OfficeOpenXml;
 
-namespace AsposeService.Service
+namespace EPPService.Service
+
 {
-    public class AsposeExcel
+    public class EPlusPlus
     {
-        #region FiletoWorkSheet
-        public tempJson AsposeFiletoWB(FileInfo fi, IFormFile file)
+        #region FiletoWorkSeet
+        public tempJson EPPFiletoWS(FileInfo fi, IFormFile file)
         {
             switch (fi.Extension)
             {
-                case ".csv":
+                case ".xlsx":
                     using (ExcelPackage exPack = new ExcelPackage())
                     {
                         ExcelWorksheet ws = exPack.Workbook.Worksheets.Add("Sheet 1"); // Create WS
@@ -22,20 +23,21 @@ namespace AsposeService.Service
                         WStoExport(ws);
                     }
                     break;
-                case ".xlsx":
-                    
+                case ".csv":
+
                     break;
             }
             return null;
         }
-        #endregion FiletoWorkSheet
+        #endregion FileJsontoWorkSeet
 
         #region JsontoWorkSheet
-        public tempJson AsposeJsontoWB(tempJson tj)
+        public tempJson EPPJsontoWS(tempJson tj)
         {
             return null;
         }
-        #endregion JsontoWorkSheet
+        #endregion FiletoWork
+
 
         #region Functions
         public void WStoExport(ExcelWorksheet ws)
