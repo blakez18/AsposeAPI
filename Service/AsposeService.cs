@@ -38,7 +38,7 @@ namespace AsposeService.Service
         #endregion JsontoWorkSheet
 
         #region Functions
-        public void WStoExport(ExcelWorksheet ws)
+        public void WStoExport(ExcelWorksheet ws) // Setup chart
         {
 
         }
