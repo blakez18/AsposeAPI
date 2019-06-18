@@ -4,7 +4,9 @@ namespace EPPService.Service
 {
     public class EPlusPlus
     {
-        public string EPPSetup(tempJson tj)
+        
+
+        public tempJson EPPSetup(tempJson tj)
         {
             return null;
         }

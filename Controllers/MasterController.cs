@@ -12,6 +12,7 @@ using TempJson.Models;
 using Companys.Models;
 using Candidates.Models;
 using EPPService.Service;
+using AsposeService.Service;
 
 namespace Master.Controllers
 {
@@ -42,10 +43,10 @@ namespace Master.Controllers
         {
             // Declarations
             tempJson tempjson = new tempJson();
-            EPlusPlus epp = new EPlusPlus();
+            AsposeExcel service = new AsposeExcel();
 
             tempjson = GetAndConvJson(tempjson); // Call tempJson and convert
-            return epp.EPPSetup(tempjson); // Create workbook
+            return service.AsposeSetup(tempjson); // Create workbook
         }
         #endregion Aspose
 
@@ -69,10 +70,10 @@ namespace Master.Controllers
         {
             // Declarations
             tempJson tempjson = new tempJson();
-            EPlusPlus epp = new EPlusPlus();
+            EPlusPlus eppService = new EPlusPlus();
 
             tempjson = GetAndConvJson(tempjson); // Call tempJson and convert
-            return epp.EPPSetup(tempjson); // Create workbook
+            return eppService.EPPSetup(tempjson); // Create workbook
         }
         #endregion EPPlus
 

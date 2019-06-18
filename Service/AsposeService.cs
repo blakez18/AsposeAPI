@@ -5,7 +5,7 @@ namespace AsposeService.Service
 {
     public class AsposeExcel
     {
-        public string AsposeSetup(tempJson tj)
+        public tempJson AsposeSetup(tempJson tj)
         {
             
             return null;
