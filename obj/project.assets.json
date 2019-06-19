@@ -31,21 +31,6 @@
           "lib/netcoreapp2.1/EPPlus.dll": {}
         }
       },
-      "EpplusExcel/1.0.0": {
-        "type": "package",
-        "compile": {
-          "lib/net40/EPPlus_ExcelDemo.vshost.exe": {},
-          "lib/net40/Spire.License.dll": {},
-          "lib/net40/Spire.Pdf.dll": {},
-          "lib/net40/Spire.XLS.dll": {}
-        },
-        "runtime": {
-          "lib/net40/EPPlus_ExcelDemo.vshost.exe": {},
-          "lib/net40/Spire.License.dll": {},
-          "lib/net40/Spire.Pdf.dll": {},
-          "lib/net40/Spire.XLS.dll": {}
-        }
-      },
       "Microsoft.AspNet.WebApi.Client/5.2.6": {
         "type": "package",
         "dependencies": {
@@ -4611,26 +4596,6 @@
         "lib/netstandard2.0/EPPlus.dll",
         "lib/netstandard2.0/EPPlus.xml",
         "readme.txt"
-      ]
-    },
-    "EpplusExcel/1.0.0": {
-      "sha512": "0dP0gfNlZaMXZKpnrWX6aVZDofZflUDswpe9pl/D06qz2K4Snc2cQzEnzfOv/SLlSH2Rxhxj4KBTvX8GoCpkjg==",
-      "type": "package",
-      "path": "epplusexcel/1.0.0",
-      "files": [
-        ".nupkg.metadata",
-        ".signature.p7s",
-        "epplusexcel.1.0.0.nupkg.sha512",
-        "epplusexcel.nuspec",
-        "lib/net40/EPPlus_ExcelDemo.exe.config",
-        "lib/net40/EPPlus_ExcelDemo.vshost.exe",
-        "lib/net40/EPPlus_ExcelDemo.vshost.exe.config",
-        "lib/net40/EPPlus_ExcelDemo.vshost.exe.manifest",
-        "lib/net40/Spire.License.dll",
-        "lib/net40/Spire.Pdf.dll",
-        "lib/net40/Spire.Pdf.xml",
-        "lib/net40/Spire.XLS.dll",
-        "lib/net40/Spire.XLS.xml"
       ]
     },
     "Microsoft.AspNet.WebApi.Client/5.2.6": {
@@ -12321,7 +12286,6 @@
     ".NETCoreApp,Version=v2.2": [
       "Aspose.Cells >= 19.5.0",
       "EPPlus >= 4.5.3.2",
-      "EpplusExcel >= 1.0.0",
       "Microsoft.AspNetCore.App >= 2.2.0",
       "Microsoft.AspNetCore.Razor.Design >= 2.2.0",
       "Microsoft.EntityFrameworkCore.SqlServer >= 2.2.3",
@@ -12335,11 +12299,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\bzaffiro\\workrepos\\AsposeAPI\\AsposeAPI.csproj",
+      "projectUniqueName": "c:\\Users\\bzaffiro\\workrepos\\AsposeAPI\\AsposeAPI.csproj",
       "projectName": "AsposeAPI",
-      "projectPath": "C:\\Users\\bzaffiro\\workrepos\\AsposeAPI\\AsposeAPI.csproj",
+      "projectPath": "c:\\Users\\bzaffiro\\workrepos\\AsposeAPI\\AsposeAPI.csproj",
       "packagesPath": "C:\\Users\\bzaffiro\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\bzaffiro\\workrepos\\AsposeAPI\\obj\\",
+      "outputPath": "c:\\Users\\bzaffiro\\workrepos\\AsposeAPI\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
@@ -12377,10 +12341,6 @@
             "target": "Package",
             "version": "[4.5.3.2, )"
           },
-          "EpplusExcel": {
-            "target": "Package",
-            "version": "[1.0.0, )"
-          },
           "Microsoft.AspNetCore.App": {
             "suppressParent": "All",
             "target": "Package",
@@ -12410,17 +12370,5 @@
         "warn": true
       }
     }
-  },
-  "logs": [
-    {
-      "code": "NU1701",
-      "level": "Warning",
-      "warningLevel": 1,
-      "message": "Package 'EpplusExcel 1.0.0' was restored using '.NETFramework,Version=v4.6.1' instead of the project target framework '.NETCoreApp,Version=v2.2'. This package may not be fully compatible with your project.",
-      "libraryId": "EpplusExcel",
-      "targetGraphs": [
-        ".NETCoreApp,Version=v2.2"
-      ]
-    }
-  ]
+  }
 }

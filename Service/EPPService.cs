@@ -39,6 +39,7 @@ namespace EPPService.Service
         #region JsontoWorkSheet
         public ExcelPackage EPPJsontoWS(tempJson cList) // List<t>
         {
+
             using (ExcelPackage ex = new ExcelPackage())
             {
                 return WStoExport(ex, cList);
@@ -50,7 +51,7 @@ namespace EPPService.Service
         public static ExcelPackage WStoExport(ExcelPackage ex, tempJson cList) // make chart here 
         {
             List<string> tempString = new List<string>();
-
+            FileInfo nf = new FileInfo("C:\\Users\\bzaffiro\\workrepos\\New_Data.xlsx");
             if (cList == null)
                 return null;
 
@@ -59,13 +60,23 @@ namespace EPPService.Service
 
             // Adding data into Tab 2: Worksheet 1 == Data_File
             ex.Workbook.Worksheets[1].Cells.LoadFromCollection(cList.position);// puts position List<t> to worksheet 2                        
-
+            
+            ex = GetWSOneVals(ex);
+            
             ex = CreatingChart(ex, cList);
             // example to load code into list
             cList.position.ForEach(x => // thats how you loop with Linq
             {
                 tempString.Add(Convert.ToString(x.CompanyId)); //looping through all of the candidateIds
             });
+            ex.SaveAs(nf);
+            return ex;
+        }
+
+        public static ExcelPackage GetWSOneVals(ExcelPackage ex)
+        {
+
+
             return ex;
         }
 
