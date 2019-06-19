@@ -1,2 +1,10 @@
 
 *.code-workspace
+
+obj/AsposeAPI\.csproj\.nuget\.cache
+
+obj/AsposeAPI\.csproj\.nuget\.dgspec\.json
+
+obj/AsposeAPI\.csproj\.nuget\.g\.props
+
+obj/project\.assets\.json
