@@ -54,15 +54,13 @@ namespace EPPService.Service
             if (cList == null)
                 return null;
 
-            ExcelWorksheet ws = ex.Workbook.Worksheets.Add("test"); // Adds worksheet to workbook                
-            ws.Cells.LoadFromCollection(cList.position);// puts position List<t> to worksheet 2
-            
-            var myChart = ws.Drawings.AddChart("chart", OfficeOpenXml.Drawing.Chart.eChartType.BarOfPie);
-            myChart.SetSize(800, 600);
-            myChart.Name = "New Chart";
-            myChart.Border.Fill.Color = System.Drawing.Color.Green;
-            //consumptionWorksheet.Cells[1, 1].LoadFromCollection(consumptionComparisonDetails, false, OfficeOpenXml.Table.TableStyles.Medium1);  
+            ex.Workbook.Worksheets.Add("Cool Tab"); // Adds worksheet to workbook     
+            ex.Workbook.Worksheets.Add("Data_File");
 
+            // Adding data into Tab 2: Worksheet 1 == Data_File
+            ex.Workbook.Worksheets[1].Cells.LoadFromCollection(cList.position);// puts position List<t> to worksheet 2                        
+
+            ex = CreatingChart(ex, cList);
             // example to load code into list
             cList.position.ForEach(x => // thats how you loop with Linq
             {
@@ -71,8 +69,18 @@ namespace EPPService.Service
             return ex;
         }
 
-        public ExcelPackage AddChart(ExcelPackage ex) // Create Chart code
+        public static ExcelPackage CreatingChart(ExcelPackage ex, tempJson cList) // Create Chart code
         {
+            // Worksheet 0 == Cool Tab
+            // Adding Chart
+            ex.Workbook.Worksheets[0].Drawings.AddChart("Cool Chart", OfficeOpenXml.Drawing.Chart.eChartType.BarOfPie);
+            // Format Chart
+            ex.Workbook.Worksheets[0].Drawings[0].SetSize(800, 600);
+            //ex.Workbook.Worksheets[0].Drawings[0]. System.Drawing.Color.Green;
+            
+            //myChart.Border.Fill.Color = System.Drawing.Color.Green;
+            //consumptionWorksheet.Cells[1, 1].LoadFromCollection(consumptionComparisonDetails, false, OfficeOpenXml.Table.TableStyles.Medium1);  
+
             return ex;
         }
 
