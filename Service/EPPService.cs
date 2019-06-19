@@ -37,36 +37,45 @@ namespace EPPService.Service
         #endregion FileJsontoWorkSeet
 
         #region JsontoWorkSheet
-        public List<string> EPPJsontoWS(tempJson cList) // List<t>
+        public ExcelPackage EPPJsontoWS(tempJson cList) // List<t>
         {
             using (ExcelPackage ex = new ExcelPackage())
             {
-                ExcelWorksheet worksheet = ex.Workbook.Worksheets.Add("test");
-                worksheet.Cells.LoadFromCollection(cList.position);// puts position List<t> to worksheet 2
-                return WStoExport(worksheet, cList);
+                return WStoExport(ex, cList);
             }
         }
         #endregion FiletoWork
 
         #region Functions
-        public static List<string> WStoExport(ExcelWorksheet ws, tempJson cList) // make chart here 
+        public static ExcelPackage WStoExport(ExcelPackage ex, tempJson cList) // make chart here 
         {
+            List<string> tempString = new List<string>();
+
             if (cList == null)
                 return null;
-            // TODO: need to ctrl + . to get the using reference... i cant do it from my end
+
+            ExcelWorksheet ws = ex.Workbook.Worksheets.Add("test"); // Adds worksheet to workbook                
+            ws.Cells.LoadFromCollection(cList.position);// puts position List<t> to worksheet 2
+            
             var myChart = ws.Drawings.AddChart("chart", OfficeOpenXml.Drawing.Chart.eChartType.BarOfPie);
-            List<string> tempString = new List<string>();
             myChart.SetSize(800, 600);
             myChart.Name = "New Chart";
             myChart.Border.Fill.Color = System.Drawing.Color.Green;
             //consumptionWorksheet.Cells[1, 1].LoadFromCollection(consumptionComparisonDetails, false, OfficeOpenXml.Table.TableStyles.Medium1);  
 
+            // example to load code into list
             cList.position.ForEach(x => // thats how you loop with Linq
             {
                 tempString.Add(Convert.ToString(x.CompanyId)); //looping through all of the candidateIds
             });
-            return tempString;
+            return ex;
         }
+
+        public ExcelPackage AddChart(ExcelPackage ex) // Create Chart code
+        {
+            return ex;
+        }
+
         #endregion Functions
     }
 }

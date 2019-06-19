@@ -13,6 +13,7 @@ using Candidates.Models;
 using EPPService.Service;
 using AsposeService.Service;
 using System.Collections.Generic;
+using OfficeOpenXml;
 
 namespace Master.Controllers
 {
@@ -63,7 +64,7 @@ namespace Master.Controllers
         }
 
         //=== Json ==//
-        public List<string> JsonToEPPlus() // GET Master/JsonToEPPlus
+        public ExcelPackage JsonToEPPlus() // GET Master/JsonToEPPlus
         {
             // Declarations
             tempJson tempjson = new tempJson();
