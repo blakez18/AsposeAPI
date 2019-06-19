@@ -1,5 +1,4 @@
 using System;
-using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
@@ -13,6 +12,7 @@ using Companys.Models;
 using Candidates.Models;
 using EPPService.Service;
 using AsposeService.Service;
+using System.Collections.Generic;
 
 namespace Master.Controllers
 {
@@ -63,7 +63,7 @@ namespace Master.Controllers
         }
 
         //=== Json ==//
-        public tempJson JsonToEPPlus() // GET Master/JsonToEPPlus
+        public List<string> JsonToEPPlus() // GET Master/JsonToEPPlus
         {
             // Declarations
             tempJson tempjson = new tempJson();
