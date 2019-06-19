@@ -19,13 +19,13 @@ namespace EPPService.Service
             switch (fi.Extension)
             {
                 case ".xlsx":
-                    using (ExcelPackage exPack = new ExcelPackage())
+                    using (ExcelPackage ex = new ExcelPackage())
                     {
-                        ExcelWorksheet ws = exPack.Workbook.Worksheets.Add("Sheet 1");
-                        ExcelWorksheet ws2 = exPack.Workbook.Worksheets.Add("Sheet 2"); // Create WS
+                        ExcelWorksheet ws = ex.Workbook.Worksheets.Add("Sheet 1");
+                        ExcelWorksheet ws2 = ex.Workbook.Worksheets.Add("Sheet 2"); // Create WS
                         var format = new ExcelTextFormat { Delimiter = '\t', EOL = "\r" };
                         ws.Cells["A1"].LoadFromText(fi, format);
-                        WStoExport(ws, tempjson);
+                        WStoExport(ex, tempjson);
                     }
                     break;
                 case ".csv":

@@ -49,6 +49,10 @@
               "target": "Package",
               "version": "[4.5.3.2, )"
             },
+            "EpplusExcel": {
+              "target": "Package",
+              "version": "[1.0.0, )"
+            },
             "Microsoft.AspNetCore.App": {
               "suppressParent": "All",
               "target": "Package",
