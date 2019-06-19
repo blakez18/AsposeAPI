@@ -44,16 +44,9 @@ namespace EPPService.Service
                 ExcelWorksheet worksheet = ex.Workbook.Worksheets.Add("test");
                 worksheet.Cells.LoadFromCollection(cList.position);// puts position List<t> to worksheet 2
                 return WStoExport(worksheet, cList);
-
-               
-               
-}
-                
+            }
         }
-
-
         #endregion FiletoWork
-
 
         #region Functions
         public static List<string> WStoExport(ExcelWorksheet ws, tempJson cList) // make chart here 
@@ -67,13 +60,11 @@ namespace EPPService.Service
             myChart.Name = "New Chart";
             myChart.Border.Fill.Color = System.Drawing.Color.Green;
             //consumptionWorksheet.Cells[1, 1].LoadFromCollection(consumptionComparisonDetails, false, OfficeOpenXml.Table.TableStyles.Medium1);  
-            
 
             cList.position.ForEach(x => // thats how you loop with Linq
             {
-             tempString.Add(Convert.ToString(x.CompanyId)); //looping through all of the candidateIds
-             
-           });
+                tempString.Add(Convert.ToString(x.CompanyId)); //looping through all of the candidateIds
+            });
             return tempString;
         }
         #endregion Functions
