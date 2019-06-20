@@ -4,6 +4,7 @@ using System.IO;
 using OfficeOpenXml;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace EPPService.Service
 
@@ -11,6 +12,7 @@ namespace EPPService.Service
     public class EPlusPlus
     {
         private static object xlWorkSheet;
+        private static object wsConfig;
         #region FiletoWorkSeet
         public tempJson EPPFiletoWS(FileInfo fi, IFormFile file)
         {
@@ -72,33 +74,17 @@ namespace EPPService.Service
             ex.SaveAs(nf);
             return ex;
         }
-
-        //public static ExcelPackage GetWSOneVals(ExcelPackage ex)
-        // {
-
-
-
-
-
-        // }
-        //ExcelRange R = ex.Workbook.Worksheets[1].Cells;
-        //foreach(Excel.Range row in R.Rows){
-        //foreach(Excel.Range col in R.Columns){
-        // ex.Workbook.Worksheets[0].Drawings[0].Series.Add(Range);
-
-        //  return ex;
-        //  }
-        // }
-        // }
         public static ExcelPackage CreatingChart(ExcelPackage ex, tempJson cList) // Create Chart code
         {
-            // Worksheet 0 == Cool Tab
-            // Adding Chart
-            var chart = ex.Workbook.Worksheets[0].Drawings.AddChart("Cool Chart", OfficeOpenXml.Drawing.Chart.eChartType.BarOfPie);
-            // Format Chart
-            
+            var chart = ex.Workbook.Worksheets[0].Drawings.AddChart("Cool Chart", OfficeOpenXml.Drawing.Chart.eChartType.Line); //adding chart
+            int lastRow = ex.Workbook.Worksheets[1].Cells.Where(cell => !cell.Value.ToString().Equals("")).Last().End.Row;
+            int lastColumn = ex.Workbook.Worksheets[1].Cells.Where(cell => !cell.Value.ToString().Equals("")).Last().End.Column;
+            var a = "A";
+            var range1 = string.Concat(a, lastRow);
+            var range2 = string.Concat(a, lastColumn);
+            chart.Series.Add(range1, range2);
 
-            chart.Series.Add(ex.Workbook.Worksheets[1].Cells["A1:A6"], ex.Workbook.Worksheets[1].Cells["B1:B6"]);
+           // chart.Series.Add(ex.Workbook.Worksheets[1].Cells["A1:A + lastRow"], ex.Workbook.Worksheets[1].Cells["A1:A2"]);
 
             // Loop to determine chart
             #region code
