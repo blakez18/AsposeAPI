@@ -14,6 +14,8 @@ using EPPService.Service;
 using AsposeService.Service;
 using System.Collections.Generic;
 using OfficeOpenXml;
+using System.Net.Http;
+using System.Net.Http.Headers;
 
 namespace Master.Controllers
 {
@@ -64,7 +66,7 @@ namespace Master.Controllers
         }
 
         //=== Json ==//
-        public ExcelPackage JsonToEPPlus() // GET Master/JsonToEPPlus
+        public HttpResponseMessage JsonToEPPlus() // GET Master/JsonToEPPlus
         {
             // Declarations
             tempJson tempjson = new tempJson();
@@ -73,6 +75,26 @@ namespace Master.Controllers
             tempjson = GetAndConvJson(tempjson); // Call tempJson and convert
             return eppService.EPPJsontoWS(tempjson); // Create workbook
         }
+
+        public static HttpResponseMessage ReturnStreamAsFile(MemoryStream stream, string fileName)
+        {
+            // Set Http Status Code
+            HttpResponseMessage result = new HttpResponseMessage(System.Net.HttpStatusCode.OK);
+            
+            // Reset Stream Position
+            stream.Position = 0;
+            result.Content = new StreamContent(stream);
+            
+            // Generic Content Header
+            result.Content.Headers.ContentType = new MediaTypeHeaderValue("applicattion/octet-stream");
+            result.Content.Headers.ContentDisposition = new ContentDispositionHeaderValue("attachment");
+
+            // Set file name sent to client
+            result.Content.Headers.ContentDisposition.FileName = "";
+
+            return result;
+        }
+
         #endregion EPPlus
 
         #region Functions

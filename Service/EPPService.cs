@@ -57,7 +57,8 @@ namespace EPPService.Service
             if (cList == null)
                 return null;
 
-            ex.Workbook.Worksheets.Add("Cool Tab"); // Adds worksheet to workbook     
+            // Adding Worksheets to Workbook
+            ex.Workbook.Worksheets.Add("Cool Tab"); 
             ex.Workbook.Worksheets.Add("Data_File");
 
             // Adding data into Tab 2: Worksheet 1 == Data_File
