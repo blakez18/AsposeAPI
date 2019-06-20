@@ -96,20 +96,27 @@ namespace EPPService.Service
             // Adding Chart
             var chart = ex.Workbook.Worksheets[0].Drawings.AddChart("Cool Chart", OfficeOpenXml.Drawing.Chart.eChartType.BarOfPie);
             // Format Chart
+            
 
-            foreach (var cell in ex.Workbook.Worksheets[1].Cells[1, 1, 1, ex.Workbook.Worksheets[1].Dimension.End.Column])
-            {
-                var data = cell.Value;
+            chart.Series.Add(ex.Workbook.Worksheets[1].Cells["A1:A6"], ex.Workbook.Worksheets[1].Cells["B1:B6"]);
 
-                //    for (int i = 2; i <= ex.Workbook.Worksheets[1].Dimension.End.Row; i++) {
+            // Loop to determine chart
+            #region code
+            // foreach (var cell in ex.Workbook.Worksheets[1].Cells[1, 1, 1, ex.Workbook.Worksheets[1].Dimension.End.Column])
+            // {
+            //     var data = cell.Value;
 
-                // Enumerable.Range(ex.Workbook.Worksheets[1].Dimension.Start.Row + 1, ex.Workbook.Worksheets[1].Dimension.End.Row).Select(i => Convert.ToString(ex.Workbook.Worksheets[1].Cells[i, 1].Value));
+            //     //    for (int i = 2; i <= ex.Workbook.Worksheets[1].Dimension.End.Row; i++) {
 
-                //ExcelRange range = ex.Workbook.Worksheets[1].Cells;
-                // chart.Series.Add(ex.Workbook.Worksheets[1].Cells[data], ex.Workbook.Worksheets[1].Cells[data]);
-                // }
-            }
-            ex.Workbook.Worksheets[0].Drawings[0].SetSize(800, 600);
+            //     // Enumerable.Range(ex.Workbook.Worksheets[1].Dimension.Start.Row + 1, ex.Workbook.Worksheets[1].Dimension.End.Row).Select(i => Convert.ToString(ex.Workbook.Worksheets[1].Cells[i, 1].Value));
+
+            //     //ExcelRange range = ex.Workbook.Worksheets[1].Cells;
+            //     // chart.Series.Add(ex.Workbook.Worksheets[1].Cells[data], ex.Workbook.Worksheets[1].Cells[data]);
+            //     // }
+            // }
+            #endregion code
+
+            // ex.Workbook.Worksheets[0].Drawings[0].SetSize(800, 600);
             //ex.Workbook.Worksheets[0].Drawings[0]. System.Drawing.Color.Green;
 
             //myChart.Border.Fill.Color = System.Drawing.Color.Green;
