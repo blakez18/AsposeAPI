@@ -1,4 +1,3 @@
-using System.Linq;
 using TempJson.Models;
 using Microsoft.AspNetCore.Http;
 using System.IO;
@@ -11,6 +10,7 @@ namespace EPPService.Service
 {
     public class EPlusPlus
     {
+        private static object xlWorkSheet;
         #region FiletoWorkSeet
         public tempJson EPPFiletoWS(FileInfo fi, IFormFile file)
         {
@@ -60,9 +60,9 @@ namespace EPPService.Service
 
             // Adding data into Tab 2: Worksheet 1 == Data_File
             ex.Workbook.Worksheets[1].Cells.LoadFromCollection(cList.position);// puts position List<t> to worksheet 2                        
-            
-            ex = GetWSOneVals(ex);
-            
+                                                                               //ExcelRange data = ex.Workbook.Worksheets[1].Cells;
+                                                                               //ex = GetWSOneVals(ex);
+                                                                               // var data2 = data.
             ex = CreatingChart(ex, cList);
             // example to load code into list
             cList.position.ForEach(x => // thats how you loop with Linq
@@ -73,28 +73,51 @@ namespace EPPService.Service
             return ex;
         }
 
-        public static ExcelPackage GetWSOneVals(ExcelPackage ex)
-        {
+        //public static ExcelPackage GetWSOneVals(ExcelPackage ex)
+        // {
 
 
-            return ex;
-        }
 
+
+
+        // }
+        //ExcelRange R = ex.Workbook.Worksheets[1].Cells;
+        //foreach(Excel.Range row in R.Rows){
+        //foreach(Excel.Range col in R.Columns){
+        // ex.Workbook.Worksheets[0].Drawings[0].Series.Add(Range);
+
+        //  return ex;
+        //  }
+        // }
+        // }
         public static ExcelPackage CreatingChart(ExcelPackage ex, tempJson cList) // Create Chart code
         {
             // Worksheet 0 == Cool Tab
             // Adding Chart
-            ex.Workbook.Worksheets[0].Drawings.AddChart("Cool Chart", OfficeOpenXml.Drawing.Chart.eChartType.BarOfPie);
+            var chart = ex.Workbook.Worksheets[0].Drawings.AddChart("Cool Chart", OfficeOpenXml.Drawing.Chart.eChartType.BarOfPie);
             // Format Chart
+
+            foreach (var cell in ex.Workbook.Worksheets[1].Cells[1, 1, 1, ex.Workbook.Worksheets[1].Dimension.End.Column])
+            {
+                var data = cell.Value;
+
+                //    for (int i = 2; i <= ex.Workbook.Worksheets[1].Dimension.End.Row; i++) {
+
+                // Enumerable.Range(ex.Workbook.Worksheets[1].Dimension.Start.Row + 1, ex.Workbook.Worksheets[1].Dimension.End.Row).Select(i => Convert.ToString(ex.Workbook.Worksheets[1].Cells[i, 1].Value));
+
+                //ExcelRange range = ex.Workbook.Worksheets[1].Cells;
+                // chart.Series.Add(ex.Workbook.Worksheets[1].Cells[data], ex.Workbook.Worksheets[1].Cells[data]);
+                // }
+            }
             ex.Workbook.Worksheets[0].Drawings[0].SetSize(800, 600);
             //ex.Workbook.Worksheets[0].Drawings[0]. System.Drawing.Color.Green;
-            
+
             //myChart.Border.Fill.Color = System.Drawing.Color.Green;
             //consumptionWorksheet.Cells[1, 1].LoadFromCollection(consumptionComparisonDetails, false, OfficeOpenXml.Table.TableStyles.Medium1);  
 
             return ex;
         }
-
-        #endregion Functions
     }
+
+    #endregion Functions
 }
