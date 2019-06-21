@@ -1,4 +1,4 @@
-using TempJson.Models;
+using MasterModel.Models;
 using Microsoft.AspNetCore.Http;
 using System.IO;
 using OfficeOpenXml;
@@ -14,9 +14,9 @@ namespace EPPService.Service
         private static object xlWorkSheet;
         private static object wsConfig;
         #region FiletoWorkSeet
-        public tempJson EPPFiletoWS(FileInfo fi, IFormFile file)
+        public masterModel EPPFiletoWS(FileInfo fi, IFormFile file)
         {
-            tempJson tempjson = new tempJson();
+            masterModel pccList = new masterModel();
 
             switch (fi.Extension)
             {
@@ -27,7 +27,7 @@ namespace EPPService.Service
                         ExcelWorksheet ws2 = ex.Workbook.Worksheets.Add("Sheet 2"); // Create WS
                         var format = new ExcelTextFormat { Delimiter = '\t', EOL = "\r" };
                         ws.Cells["A1"].LoadFromText(fi, format);
-                        WStoExport(ex, tempjson);
+                        WStoExport(ex, pccList);
                     }
                     break;
                 case ".csv":
@@ -39,7 +39,7 @@ namespace EPPService.Service
         #endregion FileJsontoWorkSeet
 
         #region JsontoWorkSheet
-        public ExcelPackage EPPJsontoWS(tempJson cList) // List<t>
+        public ExcelPackage EPPJsontoWS(masterModel cList) // List<t>
         {
 
             using (ExcelPackage ex = new ExcelPackage())
@@ -50,7 +50,11 @@ namespace EPPService.Service
         #endregion FiletoWork
 
         #region Functions
-        public static ExcelPackage WStoExport(ExcelPackage ex, tempJson cList) // make chart here 
+
+        public static MemoryStream EPPBlobData(masterModel)
+
+
+        public static ExcelPackage WStoExport(ExcelPackage ex, masterModel cList) // make chart here 
         {
             List<string> tempString = new List<string>();
             FileInfo nf = new FileInfo("C:\\Users\\bzaffiro\\workrepos\\New_Data.xlsx");
@@ -75,7 +79,7 @@ namespace EPPService.Service
             ex.SaveAs(nf);
             return ex;
         }
-        public static ExcelPackage CreatingChart(ExcelPackage ex, tempJson cList) // Create Chart code
+        public static ExcelPackage CreatingChart(ExcelPackage ex, masterModel cList) // Create Chart code
         {
             var chart = ex.Workbook.Worksheets[0].Drawings.AddChart("Cool Chart", OfficeOpenXml.Drawing.Chart.eChartType.Line); //adding chart
             int lastRow = ex.Workbook.Worksheets[1].Cells.Where(cell => !cell.Value.ToString().Equals("")).Last().End.Row;
