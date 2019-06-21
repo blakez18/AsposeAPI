@@ -15,9 +15,9 @@ namespace EPPService.Service
         private static object wsConfig;
         public Byte[] EPPlusDatatoFormat(FileorJson foj)
         {
-            FileInfo nf = new FileInfo("C:\\Users\\bzaffiro\\workrepos\\New_Data.xlsx");
-
-            using (ExcelPackage ex = new ExcelPackage())
+            //FileInfo nf = new FileInfo("C:\\Users\\bzaffiro\\workrepos\\New_Data.xlsx");
+            FileInfo newFile = new FileInfo(@"Test.xlsx");
+            using (ExcelPackage ex = new ExcelPackage(newFile))
             {
                 ex.Workbook.Worksheets.Add("Chart");
                 ex.Workbook.Worksheets.Add("Data_Cells");
@@ -30,6 +30,7 @@ namespace EPPService.Service
                 {
                     ex.Workbook.Worksheets[1].Cells.LoadFromCollection(foj.PCCList.position); // loads only position
                 }
+                ex.Save();
                 return ex.GetAsByteArray();
             }
         }

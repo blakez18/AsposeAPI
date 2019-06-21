@@ -46,11 +46,12 @@ namespace Master.Controllers
             result.Content = new ByteArrayContent(data);
 
             // Generic Content Header
-            result.Content.Headers.ContentType = new MediaTypeHeaderValue("applicattion/octet-stream");
+            //result.Content.Headers.ContentType = new MediaTypeHeaderValue("applicattion/octet-stream");
+            result.Content.Headers.ContentType = new MediaTypeHeaderValue("application/vnd.openxmlformats-officedocument.spreadsheetml.sheet");
             result.Content.Headers.ContentDisposition = new ContentDispositionHeaderValue("attachment");
 
             // Set file name sent to client
-            result.Content.Headers.ContentDisposition.FileName = fileName;
+            result.Content.Headers.ContentDisposition.FileName = "Test.xlsx";
             return result;
         }
 
