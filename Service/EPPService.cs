@@ -85,6 +85,7 @@ namespace EPPService.Service
                 for (int j = 1; j <= lastColumn; j++){
                     string beg = ex.Workbook.Worksheets[0].Cells['A1'];
                     ExcelRange range = ex.Workbook.Worksheets[1].Cells[j,i];
+                    
                     String columnLetter = 1; // for end of row;
                     cellData =  + 1 + ":" + lastColumn + 1;
                     chart.Series.Add(range, ex.Workbook.Worksheets[1].Cells["A1:lastColumn"]);
