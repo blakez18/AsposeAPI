@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Linq;
 
 using Containers.Models;
+using OfficeOpenXml.Drawing.Chart;
 
 namespace EPPService.Service
 {
@@ -19,7 +20,7 @@ namespace EPPService.Service
             FileInfo newFile = new FileInfo(@"Test.xlsx");
             using (ExcelPackage ex = new ExcelPackage(newFile))
             {
-                int wsCount = ex.Workbook.Worksheets.Count() -1;
+                int wsCount = ex.Workbook.Worksheets.Count() - 1;
                 while (wsCount >= 0)
                 {
                     ex.Workbook.Worksheets.Delete(wsCount);
@@ -45,13 +46,15 @@ namespace EPPService.Service
 
         public static ExcelPackage CreatingChart(ExcelPackage ex) // Create Chart code
         {
-            var chart = ex.Workbook.Worksheets[0].Drawings.AddChart("Cool Chart", OfficeOpenXml.Drawing.Chart.eChartType.Line); //adding chart
+            var chart = ex.Workbook.Worksheets[0].Drawings.AddChart("Cool Chart", eChartType.Pie3D); //adding chart
             int lastRow = ex.Workbook.Worksheets[1].Cells.Where(cell => !cell.Value.ToString().Equals("")).Last().End.Row;
             int lastColumn = ex.Workbook.Worksheets[1].Cells.Where(cell => !cell.Value.ToString().Equals("")).Last().End.Column;
             var a = "A";
             var range1 = string.Concat(a, lastRow);
             var range2 = string.Concat(a, lastColumn);
-            chart.Series.Add(range1, range2);
+            // Range should = .Cells["A1:A5]
+            // Series.Add[Range, RangeLabel]
+            chart.Series.Add(ex.Workbook.Worksheets[1].Cells["A2:J2"], ex.Workbook.Worksheets[0].Cells["A1:J1"]);
             return ex;
         }
     }
