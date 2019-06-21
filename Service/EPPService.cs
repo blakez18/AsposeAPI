@@ -65,16 +65,14 @@ namespace EPPService.Service
             int loopCounter = 0;
             //ex.Workbook.Worksheets[1].Cells.Rows.(Microsoft.Office.Interop.Excel.XlInsertShiftDirection.xlShiftDown,false);
             
-            while (lastRowPos >= loopCounter)
+            while (lastRowPos >=  loopCounter)
             {  
                 Char r = (Char)((61) + (lastRowPos - 1));
                 Char c = (Char)((65) + (lastColumnPos - 1));
-                range.Add(Convert.ToString(r + lastRowPos + ":" + c + lastColumnPos));
-                range.Add(Convert.ToString(r + lastRowPos + ":" + c + lastColumnPos));
+                range.Add(Convert.ToString(r.ToString() + (loopCounter + 1) + ":" + c.ToString() + (loopCounter + 1)));
+                range.Add(Convert.ToString(r.ToString() + (loopCounter + 1) + ":" + c.ToString() + (loopCounter + 1)));
                 loopCounter++;
-                if (loopCounter == lastRowPos + 1){
-                break;
-                }
+                
                 
             }
 
