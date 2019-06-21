@@ -19,6 +19,13 @@ namespace EPPService.Service
             FileInfo newFile = new FileInfo(@"Test.xlsx");
             using (ExcelPackage ex = new ExcelPackage(newFile))
             {
+                int wsCount = ex.Workbook.Worksheets.Count() -1;
+                while (wsCount >= 0)
+                {
+                    ex.Workbook.Worksheets.Delete(wsCount);
+                    wsCount -= 1;
+                }
+
                 ex.Workbook.Worksheets.Add("Chart");
                 ex.Workbook.Worksheets.Add("Data_Cells");
                 var format = new ExcelTextFormat { Delimiter = '\t', EOL = "\r" };
@@ -30,15 +37,10 @@ namespace EPPService.Service
                 {
                     ex.Workbook.Worksheets[1].Cells.LoadFromCollection(foj.PCCList.position); // loads only position
                 }
+                CreatingChart(ex);
                 ex.Save();
                 return ex.GetAsByteArray();
             }
-        }
-
-        public static Byte[] EPPBlobData(ExcelPackage ex)
-        {
-            ex = CreatingChart(ex);
-            return null;
         }
 
         public static ExcelPackage CreatingChart(ExcelPackage ex) // Create Chart code
