@@ -76,15 +76,24 @@ namespace EPPService.Service
         }
         public static ExcelPackage CreatingChart(ExcelPackage ex, tempJson cList) // Create Chart code
         {
+            String cellData;
             var chart = ex.Workbook.Worksheets[0].Drawings.AddChart("Cool Chart", OfficeOpenXml.Drawing.Chart.eChartType.Line); //adding chart
-            int lastRow = ex.Workbook.Worksheets[1].Cells.Where(cell => !cell.Value.ToString().Equals("")).Last().End.Row;
+            int firstRowPos = ex.Workbook.Worksheets[1].Cells.Where(cell => !cell.Value.ToString().Equals("")).First().End.Row;
+            int lastRowPos = ex.Workbook.Worksheets[1].Cells.Where(cell => !cell.Value.ToString().Equals("")).Last().End.Row;            
             int lastColumn = ex.Workbook.Worksheets[1].Cells.Where(cell => !cell.Value.ToString().Equals("")).Last().End.Column;
-            var a = "A";
-            var range1 = string.Concat(a, lastRow);
-            var range2 = string.Concat(a, lastColumn);
-            chart.Series.Add(range1, range2);
+            for (int i = 1; i <= lastRowPos; i++ ){
+                for (int j = 1; j <= lastColumn; j++){
+                    string beg = ex.Workbook.Worksheets[0].Cells['A1'];
+                    ExcelRange range = ex.Workbook.Worksheets[1].Cells[j,i];
+                    String columnLetter = 1; // for end of row;
+                    cellData =  + 1 + ":" + lastColumn + 1;
+                    chart.Series.Add(range, ex.Workbook.Worksheets[1].Cells["A1:lastColumn"]);
 
-           // chart.Series.Add(ex.Workbook.Worksheets[1].Cells["A1:A + lastRow"], ex.Workbook.Worksheets[1].Cells["A1:A2"]);
+
+                }
+            }
+
+            chart.Series.Add(ex.Workbook.Worksheets[1].Cells["A1:A + lastRow"], ex.Workbook.Worksheets[1].Cells["A1:lastRow"]);
 
             // Loop to determine chart
             #region code
