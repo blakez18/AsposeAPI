@@ -1,4 +1,3 @@
-using MasterModel.Models;
 using Microsoft.AspNetCore.Http;
 using System.IO;
 using OfficeOpenXml;
@@ -14,19 +13,39 @@ namespace EPPService.Service
     {
         private static object xlWorkSheet;
         private static object wsConfig;
-        public MemoryStream EPPlusDatatoFormat(FileorJson foj)
+        public Byte[] EPPlusDatatoFormat(FileorJson foj)
         {
-            MemoryStream output = new MemoryStream();
+            using (ExcelPackage ex = new ExcelPackage())
+            {
+                ex.Workbook.Worksheets.Add("Chart");
+                ex.Workbook.Worksheets.Add("Data_Cells");
+                var format = new ExcelTextFormat { Delimiter = '\t', EOL = "\r" };
+                if (foj.File != null) {
+                    ex.Workbook.Worksheets[1].Cells["A1"].LoadFromText(foj.File.Extension, format); // might not work
+                } else if (foj.PCCList != null) {
+                    ex.Workbook.Worksheets[1].Cells.LoadFromCollection(foj.PCCList.position); // loads only position
+                }
+                ex.Save();
+                return ex.GetAsByteArray();
+            }
+        }
 
-            
-
+        public static Byte[] EPPBlobData(ExcelPackage ex)
+        {
+            ex = CreatingChart(ex);
             return null;
         }
 
-        public static MemoryStream EPPBlobData(masterModel pccList)
+            public static ExcelPackage CreatingChart(ExcelPackage ex) // Create Chart code
         {
-
-
+            var chart = ex.Workbook.Worksheets[0].Drawings.AddChart("Cool Chart", OfficeOpenXml.Drawing.Chart.eChartType.Line); //adding chart
+            int lastRow = ex.Workbook.Worksheets[1].Cells.Where(cell => !cell.Value.ToString().Equals("")).Last().End.Row;
+            int lastColumn = ex.Workbook.Worksheets[1].Cells.Where(cell => !cell.Value.ToString().Equals("")).Last().End.Column;
+            var a = "A";
+            var range1 = string.Concat(a, lastRow);
+            var range2 = string.Concat(a, lastColumn);
+            chart.Series.Add(range1, range2);
+            return ex;
         }
 
 
@@ -89,48 +108,13 @@ namespace EPPService.Service
                                                                                //ExcelRange data = ex.Workbook.Worksheets[1].Cells;
                                                                                //ex = GetWSOneVals(ex);
                                                                                // var data2 = data.
-            ex = CreatingChart(ex, cList);
+            ex = CreatingChart(ex);
             // example to load code into list
             cList.position.ForEach(x => // thats how you loop with Linq
             {
                 tempString.Add(Convert.ToString(x.CompanyId)); //looping through all of the candidateIds
             });
             ex.SaveAs(nf);
-            return ex;
-        }
-        public static ExcelPackage CreatingChart(ExcelPackage ex, masterModel cList) // Create Chart code
-        {
-            var chart = ex.Workbook.Worksheets[0].Drawings.AddChart("Cool Chart", OfficeOpenXml.Drawing.Chart.eChartType.Line); //adding chart
-            int lastRow = ex.Workbook.Worksheets[1].Cells.Where(cell => !cell.Value.ToString().Equals("")).Last().End.Row;
-            int lastColumn = ex.Workbook.Worksheets[1].Cells.Where(cell => !cell.Value.ToString().Equals("")).Last().End.Column;
-            var a = "A";
-            var range1 = string.Concat(a, lastRow);
-            var range2 = string.Concat(a, lastColumn);
-            chart.Series.Add(range1, range2);
-
-            // chart.Series.Add(ex.Workbook.Worksheets[1].Cells["A1:A + lastRow"], ex.Workbook.Worksheets[1].Cells["A1:A2"]);
-
-            // Loop to determine chart
-            #region code
-            // foreach (var cell in ex.Workbook.Worksheets[1].Cells[1, 1, 1, ex.Workbook.Worksheets[1].Dimension.End.Column])
-            // {
-            //     var data = cell.Value;
-
-            //     //    for (int i = 2; i <= ex.Workbook.Worksheets[1].Dimension.End.Row; i++) {
-
-            //     // Enumerable.Range(ex.Workbook.Worksheets[1].Dimension.Start.Row + 1, ex.Workbook.Worksheets[1].Dimension.End.Row).Select(i => Convert.ToString(ex.Workbook.Worksheets[1].Cells[i, 1].Value));
-
-            //     //ExcelRange range = ex.Workbook.Worksheets[1].Cells;
-            //     // chart.Series.Add(ex.Workbook.Worksheets[1].Cells[data], ex.Workbook.Worksheets[1].Cells[data]);
-            //     // }
-            // }
-            #endregion code
-
-            // ex.Workbook.Worksheets[0].Drawings[0].SetSize(800, 600);
-            //ex.Workbook.Worksheets[0].Drawings[0]. System.Drawing.Color.Green;
-
-            //myChart.Border.Fill.Color = System.Drawing.Color.Green;
-            //consumptionWorksheet.Cells[1, 1].LoadFromCollection(consumptionComparisonDetails, false, OfficeOpenXml.Table.TableStyles.Medium1);  
 
             return ex;
         }

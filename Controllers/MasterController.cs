@@ -27,79 +27,27 @@ namespace Master.Controllers
         // Under this controller you will create routes to the service for various package examples
         #endregion Namespace_Details
 
-        #region Aspose
-        //=== File Uploader ===//
-        public async Task<IActionResult> FiletoAspose(IFormFile file) // GET /Master/FiletoAspose
+        public HttpResponseMessage EPPlusExample(IFormFile file, string extention)
         {
-            AsposeExcel service = new AsposeExcel();
-
-            if (file == null || file.Length == 0)
-                return Content("File not selected");
-            FileInfo fi = new FileInfo(file.FileName);
-            var data = service.AsposeFiletoWB(fi, file);
-            return null;
-        }
-
-        //=== Json  ===/
-        public tempJson JsonToAspose() // GET /Master/JsonToAspose
-        {
-            // Declarations
-            tempJson tempjson = new tempJson();
-            AsposeExcel service = new AsposeExcel();
-
-            tempjson = GetAndConvJson(tempjson); // Call tempJson and convert
-            return service.AsposeJsontoWB(tempjson); // Create workbook
-        }
-        #endregion Aspose
-
-        #region EPPlus
-        //=== File Uploader ===//
-        public async Task<IActionResult> FiletoEPPlus(IFormFile file) // GET /Master/FiletoEPPlus
-        {
+            extention = "DB_Data" + extention;
             EPlusPlus service = new EPlusPlus();
-
-
-            FileInfo fi = new FileInfo(file.FileName);
-            var data = service.EPPFiletoWS(fi, file);
-            return null;
-        }
-
-        //=== Json ==//
-        public HttpResponseMessage JsonToEPPlus() // GET Master/JsonToEPPlus
-        {
-            // Declarations
-            masterModel tempjson = new masterModel();
-            EPlusPlus service = new EPlusPlus();
-
-
-            tempjson = GetAndConvJson(tempjson); // Call tempJson and convert
-            return service.EPPJsontoWS(tempjson); // Create workbook
-        }
-
-        public HttpResponseMessage EPPlusExample(IFormFile file)
-        {
-            EPlusPlus service = new EPlusPlus();
-
+            FileorJson foj = new FileorJson();
             if (file == null || file.Length == 0)
             {
                 SqlLists tempjson = new SqlLists();
-
-                return ReturnStreamAsFile(service.EPPlusDatatoFormat(null));
+                foj.PCCList = GetAndConvJson(tempjson);
+                return ReturnStreamAsFile(service.EPPlusDatatoFormat(foj), extention);
+            } else {
+                foj.FileDetails = file;
+                return ReturnStreamAsFile(service.EPPlusDatatoFormat(foj), extention);
             }
-
-
-
-
-
-
-            return null;
         }
 
-        public static HttpResponseMessage ReturnStreamAsFile(MemoryStream stream, string fileName)
+        public static HttpResponseMessage ReturnStreamAsFile(byte[] stream, string fileName)
         {
             // Set Http Status Code
             HttpResponseMessage result = new HttpResponseMessage(System.Net.HttpStatusCode.OK);
-
+            
             // Reset Stream Position
             stream.Position = 0;
             result.Content = new StreamContent(stream);
@@ -109,12 +57,9 @@ namespace Master.Controllers
             result.Content.Headers.ContentDisposition = new ContentDispositionHeaderValue("attachment");
 
             // Set file name sent to client
-            result.Content.Headers.ContentDisposition.FileName = "";
-
+            result.Content.Headers.ContentDisposition.FileName = fileName;
             return result;
         }
-
-        #endregion EPPlus
 
         #region Functions
         //=== Json Converter ===//
