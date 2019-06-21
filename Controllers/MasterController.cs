@@ -1,20 +1,13 @@
 using System;
 using System.IO;
-using System.Linq;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using Positions.Models;
-using System.Linq;
-using MasterModel.Models;
 using Companys.Models;
-using Candidates.Models;
 using Containers.Models;
 using EPPService.Service;
-using AsposeService.Service;
 using System.Collections.Generic;
-using OfficeOpenXml;
 using System.Net.Http;
 using System.Net.Http.Headers;
 
@@ -27,9 +20,10 @@ namespace Master.Controllers
         // Under this controller you will create routes to the service for various package examples
         #endregion Namespace_Details
 
-        public HttpResponseMessage EPPlusExample(IFormFile file, string extention)
+        public HttpResponseMessage EPPlusExample(IFormFile file)
         {
-            extention = "DB_Data" + extention;
+            //extention = "DB_Data" + extention;
+            String extention = "DB_Data.xlsx";
             EPlusPlus service = new EPlusPlus();
             FileorJson foj = new FileorJson();
             if (file == null || file.Length == 0)
@@ -43,14 +37,13 @@ namespace Master.Controllers
             }
         }
 
-        public static HttpResponseMessage ReturnStreamAsFile(byte[] stream, string fileName)
+        public static HttpResponseMessage ReturnStreamAsFile(byte[] data, string fileName)
         {
             // Set Http Status Code
             HttpResponseMessage result = new HttpResponseMessage(System.Net.HttpStatusCode.OK);
             
             // Reset Stream Position
-            stream.Position = 0;
-            result.Content = new StreamContent(stream);
+            result.Content = new ByteArrayContent(data);
 
             // Generic Content Header
             result.Content.Headers.ContentType = new MediaTypeHeaderValue("applicattion/octet-stream");
