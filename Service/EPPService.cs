@@ -7,6 +7,7 @@ using System.Linq;
 
 using Containers.Models;
 using OfficeOpenXml.Drawing.Chart;
+using Microsoft.Office.Interop.Excel;
 
 namespace EPPService.Service
 {
@@ -14,6 +15,9 @@ namespace EPPService.Service
     {
         private static object xlWorkSheet;
         private static object wsConfig;
+
+        public static object App { get; private set; }
+
         public Byte[] EPPlusDatatoFormat(FileorJson foj)
         {
             //FileInfo nf = new FileInfo("C:\\Users\\bzaffiro\\workrepos\\New_Data.xlsx");
@@ -59,18 +63,24 @@ namespace EPPService.Service
 
             List<string> range = new List<string>();
             int loopCounter = 0;
+            //ex.Workbook.Worksheets[1].Cells.Rows.(Microsoft.Office.Interop.Excel.XlInsertShiftDirection.xlShiftDown,false);
+            
             while (lastRowPos >= loopCounter)
-            {
-                Char r = (Char)((65) + (lastRowPos - 1));
+            {  
+                Char r = (Char)((61) + (lastRowPos - 1));
                 Char c = (Char)((65) + (lastColumnPos - 1));
                 range.Add(Convert.ToString(r + lastRowPos + ":" + c + lastColumnPos));
                 range.Add(Convert.ToString(r + lastRowPos + ":" + c + lastColumnPos));
-                //chart.Series.Add()
+                loopCounter++;
+                if (loopCounter == lastRowPos + 1){
+                break;
+                }
+                
             }
 
             range.ForEach(x =>
             {
-                chart.Series.Add(x, x);
+                chart.Series.Add(x, "");
             });
             // for (int i = 1; i <= lastRowPos; i++)
             // {
