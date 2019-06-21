@@ -141,7 +141,7 @@
         "runtime": {
           "lib/net20/Microsoft.Office.Interop.Excel.dll": {
             "assemblyVersion": "15.0.0.0",
-            "fileVersion": "0.0.0.0"
+            "fileVersion": "15.0.4795.1000"
           }
         },
         "compile": {
@@ -350,7 +350,7 @@
         "runtime": {
           "lib/netcoreapp2.0/System.Runtime.CompilerServices.Unsafe.dll": {
             "assemblyVersion": "4.0.4.1",
-            "fileVersion": "4.0.0.0"
+            "fileVersion": "4.6.26919.2"
           }
         },
         "compile": {

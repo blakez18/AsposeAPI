@@ -46,14 +46,52 @@ namespace EPPService.Service
 
         public static ExcelPackage CreatingChart(ExcelPackage ex) // Create Chart code
         {
-            var chart = ex.Workbook.Worksheets[0].Drawings.AddChart("Cool Chart", eChartType.Pie3D); //adding chart
-            int lastRow = ex.Workbook.Worksheets[1].Cells.Where(cell => !cell.Value.ToString().Equals("")).Last().End.Row;
-            int lastColumn = ex.Workbook.Worksheets[1].Cells.Where(cell => !cell.Value.ToString().Equals("")).Last().End.Column;
+            String cellData;
+
+            ExcelChart chart = ex.Workbook.Worksheets[0].Drawings.AddChart("Cool Chart", eChartType.Pie3D); //adding chart
+            int firstRowPos = ex.Workbook.Worksheets[1].Cells.Where(cell => !cell.Value.ToString().Equals("")).First().End.Row;
+            int lastRowPos = ex.Workbook.Worksheets[1].Cells.Where(cell => !cell.Value.ToString().Equals("")).Last().End.Row;
+            int lastColumnPos = ex.Workbook.Worksheets[1].Cells.Where(cell => !cell.Value.ToString().Equals("")).Last().End.Column;
+
             var a = "A";
-            var range1 = string.Concat(a, lastRow);
-            var range2 = string.Concat(a, lastColumn);
+            var range1 = string.Concat(a, lastRowPos);
+            var range2 = string.Concat(a, lastColumnPos);
+
+            List<string> range = new List<string>();
+            int loopCounter = 0;
+            while (lastRowPos >= loopCounter)
+            {
+                Char r = (Char)((65) + (lastRowPos - 1));
+                Char c = (Char)((65) + (lastColumnPos - 1));
+                range.Add(Convert.ToString(r + lastRowPos + ":" + c + lastColumnPos));
+                range.Add(Convert.ToString(r + lastRowPos + ":" + c + lastColumnPos));
+                //chart.Series.Add()
+            }
+
+            range.ForEach(x =>
+            {
+                chart.Series.Add(x, x);
+            });
+            // for (int i = 1; i <= lastRowPos; i++)
+            // {
+            //     for (int j = 1; j <= lastColumn; j++)
+            //     {
+            //         //string beg = ex.Workbook.Worksheets[0].Cells["A1:Aj", ""];
+            //         String rangeData =
+            //        // ExcelRange ranger = "A1:B1";
+            //         ExcelRange range = ex.Workbook.Worksheets[1].Cells[j, i];
+            //         String columnLetter = Convert.ToString(1); // for end of row;
+            //         cellData = +1 + ":" + lastColumn + 1;
+            //         chart.Series.Add(range, ex.Workbook.Worksheets[1].Cells["A1:lastColumn"]);
+
+
+            //     }
+            // }
+
             // Range should = .Cells["A1:A5]
             // Series.Add[Range, RangeLabel]
+
+
             chart.Series.Add(ex.Workbook.Worksheets[1].Cells["A2:J2"], ex.Workbook.Worksheets[0].Cells["A1:J1"]);
             return ex;
         }
