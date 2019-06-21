@@ -7,9 +7,10 @@ using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using Positions.Models;
 using System.Linq;
-using TempJson.Models;
+using MasterModel.Models;
 using Companys.Models;
 using Candidates.Models;
+using Containers.Models;
 using EPPService.Service;
 using AsposeService.Service;
 using System.Collections.Generic;
@@ -57,8 +58,6 @@ namespace Master.Controllers
         {
             EPlusPlus service = new EPlusPlus();
 
-            if (file == null || file.Length == 0)
-                return Content("File not selected");
 
             FileInfo fi = new FileInfo(file.FileName);
             var data = service.EPPFiletoWS(fi, file);
@@ -69,22 +68,42 @@ namespace Master.Controllers
         public HttpResponseMessage JsonToEPPlus() // GET Master/JsonToEPPlus
         {
             // Declarations
-            tempJson tempjson = new tempJson();
-            EPlusPlus eppService = new EPlusPlus();
+            masterModel tempjson = new masterModel();
+            EPlusPlus service = new EPlusPlus();
+
 
             tempjson = GetAndConvJson(tempjson); // Call tempJson and convert
-            return eppService.EPPJsontoWS(tempjson); // Create workbook
+            return service.EPPJsontoWS(tempjson); // Create workbook
+        }
+
+        public HttpResponseMessage EPPlusExample(IFormFile file)
+        {
+            EPlusPlus service = new EPlusPlus();
+
+            if (file == null || file.Length == 0)
+            {
+                SqlLists tempjson = new SqlLists();
+
+                return ReturnStreamAsFile(service.EPPlusDatatoFormat(null));
+            }
+
+
+
+
+
+
+            return null;
         }
 
         public static HttpResponseMessage ReturnStreamAsFile(MemoryStream stream, string fileName)
         {
             // Set Http Status Code
             HttpResponseMessage result = new HttpResponseMessage(System.Net.HttpStatusCode.OK);
-            
+
             // Reset Stream Position
             stream.Position = 0;
             result.Content = new StreamContent(stream);
-            
+
             // Generic Content Header
             result.Content.Headers.ContentType = new MediaTypeHeaderValue("applicattion/octet-stream");
             result.Content.Headers.ContentDisposition = new ContentDispositionHeaderValue("attachment");
@@ -99,7 +118,7 @@ namespace Master.Controllers
 
         #region Functions
         //=== Json Converter ===//
-        public tempJson GetAndConvJson(tempJson tj) // Converts json file to list<>
+        public SqlLists GetAndConvJson(SqlLists tj) // Converts json file to list<>
         {
             // Set Path
             string posPath = Path.Combine(Directory.GetCurrentDirectory(), "Json", "Position.json");

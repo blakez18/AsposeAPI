@@ -6,15 +6,34 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace EPPService.Service
+using Containers.Models;
 
+namespace EPPService.Service
 {
     public class EPlusPlus
     {
         private static object xlWorkSheet;
         private static object wsConfig;
+        public MemoryStream EPPlusDatatoFormat(FileorJson foj)
+        {
+            MemoryStream output = new MemoryStream();
+
+            
+
+            return null;
+        }
+
+        public static MemoryStream EPPBlobData(masterModel pccList)
+        {
+
+
+        }
+
+
+
+        //======================== old stuff
         #region FiletoWorkSeet
-        public masterModel EPPFiletoWS(FileInfo fi, IFormFile file)
+        public masterModel EPPFiletoWS(FileOrJson foj)
         {
             masterModel pccList = new masterModel();
 
@@ -51,7 +70,7 @@ namespace EPPService.Service
 
         #region Functions
 
-        public static MemoryStream EPPBlobData(masterModel)
+
 
 
         public static ExcelPackage WStoExport(ExcelPackage ex, masterModel cList) // make chart here 
@@ -62,7 +81,7 @@ namespace EPPService.Service
                 return null;
 
             // Adding Worksheets to Workbook
-            ex.Workbook.Worksheets.Add("Cool Tab"); 
+            ex.Workbook.Worksheets.Add("Cool Tab");
             ex.Workbook.Worksheets.Add("Data_File");
 
             // Adding data into Tab 2: Worksheet 1 == Data_File
@@ -89,7 +108,7 @@ namespace EPPService.Service
             var range2 = string.Concat(a, lastColumn);
             chart.Series.Add(range1, range2);
 
-           // chart.Series.Add(ex.Workbook.Worksheets[1].Cells["A1:A + lastRow"], ex.Workbook.Worksheets[1].Cells["A1:A2"]);
+            // chart.Series.Add(ex.Workbook.Worksheets[1].Cells["A1:A + lastRow"], ex.Workbook.Worksheets[1].Cells["A1:A2"]);
 
             // Loop to determine chart
             #region code
