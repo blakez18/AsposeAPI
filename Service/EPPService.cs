@@ -51,8 +51,6 @@ namespace EPPService.Service
                 //a1.EntireRow.Insert(Microsoft.Office.Interop.Excel.XlInsertShiftDirection.xlShiftDown, 
                 //Type.Missing );
 
-
-
                 if (foj.File != null)
                 {
                     ex.Workbook.Worksheets[1].Cells["A1"].LoadFromText(foj.File.Extension, format); // might not work
@@ -69,46 +67,36 @@ namespace EPPService.Service
                 CreatingChart(ex);
                 ex.Save();
                 return ex.GetAsByteArray();
-
             }
         }
 
         public static ExcelPackage CreatingChart(ExcelPackage ex) // Create Chart code
         {
-            String cellData;
-
-            ExcelChart chart = ex.Workbook.Worksheets[0].Drawings.AddChart("Cool Chart", eChartType.Pie3D); //adding chart
-            int headerRowPos = ex.Workbook.Worksheets[1].Cells.Where(cell => !cell.Value.ToString().Equals("")).First().End.Row;
-            int lastRowPos = ex.Workbook.Worksheets[1].Cells.Where(cell => !cell.Value.ToString().Equals("")).Last().End.Row;
-            int firstColumnPos = ex.Workbook.Worksheets[1].Cells.Where(cell => !cell.Value.ToString().Equals("")).First().End.Column;
-
-            int lastColumnPos = ex.Workbook.Worksheets[1].Cells.Where(cell => !cell.Value.ToString().Equals("")).Last().End.Column;
-            
-            var datatest = (nsEnum.AlphabetEPP)1;
-
-
             List<string> range = new List<string>();
             int loopCounter = 0;
 
-            
+            ExcelChart chart = ex.Workbook.Worksheets[0].Drawings.AddChart("Cool Chart", eChartType.Pie3D); //adding chart
 
+            // Find our ranges
+            int headerRowPos = ex.Workbook.Worksheets[1].Cells.Where(cell => !cell.Value.ToString().Equals("")).First().End.Row;
+            int lastRowPos = ex.Workbook.Worksheets[1].Cells.Where(cell => !cell.Value.ToString().Equals("")).Last().End.Row;
+            int firstColumnPos = ex.Workbook.Worksheets[1].Cells.Where(cell => !cell.Value.ToString().Equals("")).First().End.Column;
+            int lastColumnPos = ex.Workbook.Worksheets[1].Cells.Where(cell => !cell.Value.ToString().Equals("")).Last().End.Column;
+
+            // Set Header String
             while (lastRowPos >= loopCounter)
             {
-                int r = Convert.ToInt32((nsEnum.AlphabetEPP)firstColumnPos);
-                Char c = (Char)((65) + (lastColumnPos - 1));
-                range.Add(Convert.ToString(r.ToString() + (loopCounter + 1) + ":" + c.ToString() + (loopCounter + 1)));
-                //range.Add(Convert.ToString(r.ToString() + (loopCounter + 1) + ":" + c.ToString() + (loopCounter + 1)));
+                // Range.add("A2:J2");
+                range.Add((nsEnum.AlphabetEPP)firstColumnPos + (loopCounter + 1) + ":" + (nsEnum.AlphabetEPP)lastColumnPos + (loopCounter + 1));
                 loopCounter++;
-
-
             }
 
+            // Loop through our lest and set chart data
+            String headerRowRef = (nsEnum.AlphabetEPP)headerRowPos + Convert.ToString(headerRowPos) + ":" + (nsEnum.AlphabetEPP)lastColumnPos + Convert.ToString(headerRowPos); // "A1:J1" 
             range.ForEach(x =>
             {
-                chart.Series.Add(x, "");
-
+                chart.Series.Add(x, headerRowRef);
             });
-
 
             return ex;
         }
