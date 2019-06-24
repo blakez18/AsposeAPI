@@ -9,7 +9,6 @@ namespace Containers.Models
         public List<Candidates.Models.Candidate> candidate {get; set;}
         public List<Companys.Models.Company> company {get; set;}
     }
-
     public class FileorJson
     {
         public System.IO.FileInfo File { get; set; }
