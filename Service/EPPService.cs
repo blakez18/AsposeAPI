@@ -84,14 +84,17 @@ namespace EPPService.Service
 
             int lastColumnPos = ex.Workbook.Worksheets[1].Cells.Where(cell => !cell.Value.ToString().Equals("")).Last().End.Column;
             
-            nsEnum.Enu AlphatoNum = new nsEnum.Enu();
+            var datatest = (nsEnum.AlphabetEPP)1;
+
 
             List<string> range = new List<string>();
             int loopCounter = 0;
 
+            
+
             while (lastRowPos >= loopCounter)
             {
-                Char r = (Char)((65) + (firstColumnPos));
+                int r = Convert.ToInt32((nsEnum.AlphabetEPP)firstColumnPos);
                 Char c = (Char)((65) + (lastColumnPos - 1));
                 range.Add(Convert.ToString(r.ToString() + (loopCounter + 1) + ":" + c.ToString() + (loopCounter + 1)));
                 //range.Add(Convert.ToString(r.ToString() + (loopCounter + 1) + ":" + c.ToString() + (loopCounter + 1)));
