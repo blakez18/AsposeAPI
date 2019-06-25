@@ -1,19 +1,16 @@
 using System;
 using System.IO;
-using System.Linq;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using Positions.Models;
-using System.Linq;
-using TempJson.Models;
 using Companys.Models;
-using Candidates.Models;
+using Containers.Models;
 using EPPService.Service;
-using AsposeService.Service;
 using System.Collections.Generic;
-using OfficeOpenXml;
+using System.Net.Http;
+using System.Net.Http.Headers;
+using System.Threading.Tasks;
 
 namespace Master.Controllers
 {
@@ -24,60 +21,47 @@ namespace Master.Controllers
         // Under this controller you will create routes to the service for various package examples
         #endregion Namespace_Details
 
-        #region Aspose
-        //=== File Uploader ===//
-        public async Task<IActionResult> FiletoAspose(IFormFile file) // GET /Master/FiletoAspose
-        {
-            AsposeExcel service = new AsposeExcel();
-
-            if (file == null || file.Length == 0)
-                return Content("File not selected");
-            FileInfo fi = new FileInfo(file.FileName);
-            var data = service.AsposeFiletoWB(fi, file);
-            return null;
-        }
-
-        //=== Json  ===/
-        public tempJson JsonToAspose() // GET /Master/JsonToAspose
-        {
-            // Declarations
-            tempJson tempjson = new tempJson();
-            AsposeExcel service = new AsposeExcel();
-
-            tempjson = GetAndConvJson(tempjson); // Call tempJson and convert
-            return service.AsposeJsontoWB(tempjson); // Create workbook
-        }
-        #endregion Aspose
-
-        #region EPPlus
-        //=== File Uploader ===//
-        public async Task<IActionResult> FiletoEPPlus(IFormFile file) // GET /Master/FiletoEPPlus
-        {
+        public async Task<IActionResult> EPPlusExample(List<IFormFile> file)
+        {        
+            //extention = "DB_Data" + extention;
+            String extention = "DB_Data.xlsx";
             EPlusPlus service = new EPlusPlus();
+            FileorJson foj = new FileorJson();
 
-            if (file == null || file.Length == 0)
-                return Content("File not selected");
-
-            FileInfo fi = new FileInfo(file.FileName);
-            var data = service.EPPFiletoWS(fi, file);
+            if (file == null)
+            {
+                SqlLists tempjson = new SqlLists();
+                foj.PCCList = GetAndConvJson(tempjson);
+                    ReturnStreamAsFile(service.EPPlusDatatoFormat(foj), extention);
+            } else {
+               foj.FileDetails = file[0];
+                    ReturnStreamAsFile(service.EPPlusDatatoFormat(foj), extention);
+                // added a comment
+            }
             return null;
         }
 
-        //=== Json ==//
-        public ExcelPackage JsonToEPPlus() // GET Master/JsonToEPPlus
+        public static HttpResponseMessage ReturnStreamAsFile(byte[] data, string fileName)
         {
-            // Declarations
-            tempJson tempjson = new tempJson();
-            EPlusPlus eppService = new EPlusPlus();
+            // Set Http Status Code
+            HttpResponseMessage result = new HttpResponseMessage(System.Net.HttpStatusCode.OK);
+            
+            // Reset Stream Position
+            result.Content = new ByteArrayContent(data);
 
-            tempjson = GetAndConvJson(tempjson); // Call tempJson and convert
-            return eppService.EPPJsontoWS(tempjson); // Create workbook
+            // Generic Content Header
+            //result.Content.Headers.ContentType = new MediaTypeHeaderValue("applicattion/octet-stream");
+            result.Content.Headers.ContentType = new MediaTypeHeaderValue("application/vnd.openxmlformats-officedocument.spreadsheetml.sheet");
+            result.Content.Headers.ContentDisposition = new ContentDispositionHeaderValue("attachment");
+
+            // Set file name sent to client
+            result.Content.Headers.ContentDisposition.FileName = "Test.xlsx";
+            return result;
         }
-        #endregion EPPlus
 
         #region Functions
         //=== Json Converter ===//
-        public tempJson GetAndConvJson(tempJson tj) // Converts json file to list<>
+        public SqlLists GetAndConvJson(SqlLists tj) // Converts json file to list<>
         {
             // Set Path
             string posPath = Path.Combine(Directory.GetCurrentDirectory(), "Json", "Position.json");
