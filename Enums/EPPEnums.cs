@@ -1,6 +1,6 @@
 namespace nsEnum
 {
-    enum AlphabetEPP
+    enum LettEnums
     {
             A = 1,
             B = 2,

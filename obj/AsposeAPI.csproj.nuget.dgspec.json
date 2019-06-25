@@ -47,6 +47,10 @@
               "target": "Package",
               "version": "[4.5.3.2, )"
             },
+            "Microsoft.AspNet.WebApi": {
+              "target": "Package",
+              "version": "[5.2.7, )"
+            },
             "Microsoft.AspNetCore.App": {
               "suppressParent": "All",
               "target": "Package",
