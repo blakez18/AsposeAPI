@@ -104,28 +104,27 @@ namespace EPPService.Service
             // Exxample 1
             ExcelChart chart0 = ex.Workbook.Worksheets[0].Drawings.AddChart("chartZero", eChartType.Pie3D); //adding chart
             chart0.Series.Add(range, header);
-            chart0.Series.Add("=Data_Cells!$A$2:$J$6", "=Data_Cells!$A$1:$J$1");
             chart0.Title.Text = "Test Chart 0";
             chart0.SetSize(400, 400);
             chart0.SetPosition(0, 0, 0, 0);
 
             // Example 2
             ExcelChart chart1 = ex.Workbook.Worksheets[0].Drawings.AddChart("chartOne", eChartType.PieExploded3D); //adding chart
-            chart1.Series.Add("=Data_Cells!$A$2:$J$6", "Data_Cells!$A$1:$J$1");
+            chart1.Series.Add(range, header);
             chart1.Title.Text = "Test Chart 1";
             chart1.SetSize(400, 400);
             chart1.SetPosition(23, 0, 0, 0);
 
             // Example 3
             ExcelChart chart2 = ex.Workbook.Worksheets[0].Drawings.AddChart("chartTwo", eChartType.XYScatterLinesNoMarkers); //adding chart
-            chart2.Series.Add("=Data_Cells!$A$2:$J$6", "Data_Cells!$A$1:$J$1");
+            chart2.Series.Add(range, header);
             chart2.Title.Text = "Test Chart 2";
             chart2.SetSize(400, 400);
             chart2.SetPosition(0, 0, 10, 0);
 
             // Example 4
             ExcelChart chart3 = ex.Workbook.Worksheets[0].Drawings.AddChart("chartThree", eChartType.DoughnutExploded); //adding chart
-            chart3.Series.Add("=Data_Cells!$A$2:$J$6", "Data_Cells!$A$1:$J$1");
+            chart3.Series.Add(range, header);
             chart3.Title.Text = "Test Chart 3";
             chart3.SetSize(400, 400);
             chart3.SetPosition(23, 0, 10, 0);

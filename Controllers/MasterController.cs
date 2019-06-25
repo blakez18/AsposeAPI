@@ -10,6 +10,7 @@ using EPPService.Service;
 using System.Collections.Generic;
 using System.Net.Http;
 using System.Net.Http.Headers;
+using System.Threading.Tasks;
 
 namespace Master.Controllers
 {
@@ -20,25 +21,24 @@ namespace Master.Controllers
         // Under this controller you will create routes to the service for various package examples
         #endregion Namespace_Details
 
-        public HttpResponseMessage EPPlusExample(IFormFile file,[FromQuery] String isCustom)
+        public async Task<IActionResult> EPPlusExample(IFormFile file)
         {        
             //extention = "DB_Data" + extention;
             String extention = "DB_Data.xlsx";
             EPlusPlus service = new EPlusPlus();
             FileorJson foj = new FileorJson();
+
             if (file == null || file.Length == 0)
             {
                 SqlLists tempjson = new SqlLists();
-                if (isCustom != ""|| isCustom != null)
-                    foj.IsCustom = true;
-
                 foj.PCCList = GetAndConvJson(tempjson);
-                return ReturnStreamAsFile(service.EPPlusDatatoFormat(foj), extention);
+                    ReturnStreamAsFile(service.EPPlusDatatoFormat(foj), extention);
             } else {
                foj.FileDetails = file;
-                return ReturnStreamAsFile(service.EPPlusDatatoFormat(foj), extention);
+                    ReturnStreamAsFile(service.EPPlusDatatoFormat(foj), extention);
                 // added a comment
             }
+            return null;
         }
 
         public static HttpResponseMessage ReturnStreamAsFile(byte[] data, string fileName)
