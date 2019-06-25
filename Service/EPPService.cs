@@ -88,10 +88,10 @@ namespace EPPService.Service
 
             string range = "=Data_Cells!$";
             range += (nsEnum.LettEnums)firstColumnPos + "$" + Convert.ToString(firstColumnPos + 1);
-            range += ":" + (nsEnum.LettEnums)lastColumnPos + "$" + Convert.ToString(lastColumnPos);
+            range += ":$" + (nsEnum.LettEnums)lastColumnPos + "$" + Convert.ToString(lastColumnPos);
             String headerRow = "=Data_Cells!$";
-            headerRow += (nsEnum.LettEnums)firstColumnPos + "$" + Convert.ToString(firstColumnPos + 1);
-            headerRow += (nsEnum.LettEnums)lastColumnPos + "$" + Convert.ToString(firstColumnPos + 1);
+            headerRow += (nsEnum.LettEnums)firstColumnPos + "$" + Convert.ToString(firstColumnPos);
+            headerRow += ":$" + (nsEnum.LettEnums)lastColumnPos + "$" + Convert.ToString(firstColumnPos);
 
             ex = ChartExample(ex, range, headerRow);
 
@@ -128,7 +128,7 @@ namespace EPPService.Service
             chart3.Series.Add("=Data_Cells!$A$2:$J$6", "Data_Cells!$A$1:$J$1");
             chart3.Title.Text = "Test Chart 3";
             chart3.SetSize(400, 400);
-            chart3.SetPosition(0, 0, 10, 0);
+            chart3.SetPosition(23, 0, 10, 0);
 
             return ex;
         }
