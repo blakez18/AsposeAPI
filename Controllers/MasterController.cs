@@ -20,8 +20,8 @@ namespace Master.Controllers
         // Under this controller you will create routes to the service for various package examples
         #endregion Namespace_Details
 
-        public HttpResponseMessage EPPlusExample(IFormFile file)
-        {
+        public HttpResponseMessage EPPlusExample(IFormFile file,[FromQuery] String isCustom)
+        {        
             //extention = "DB_Data" + extention;
             String extention = "DB_Data.xlsx";
             EPlusPlus service = new EPlusPlus();
@@ -29,10 +29,13 @@ namespace Master.Controllers
             if (file == null || file.Length == 0)
             {
                 SqlLists tempjson = new SqlLists();
+                if (isCustom != ""|| isCustom != null)
+                    foj.IsCustom = true;
+
                 foj.PCCList = GetAndConvJson(tempjson);
                 return ReturnStreamAsFile(service.EPPlusDatatoFormat(foj), extention);
             } else {
-                foj.FileDetails = file;
+               foj.FileDetails = file;
                 return ReturnStreamAsFile(service.EPPlusDatatoFormat(foj), extention);
                 // added a comment
             }

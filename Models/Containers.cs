@@ -12,6 +12,8 @@ namespace Containers.Models
     public class FileorJson
     {
         public System.IO.FileInfo File { get; set; }
+
+        public bool IsCustom {get; set;}
         public Microsoft.AspNetCore.Http.IFormFile FileDetails { get; set; }
         public SqlLists PCCList { get; set; }   
          }

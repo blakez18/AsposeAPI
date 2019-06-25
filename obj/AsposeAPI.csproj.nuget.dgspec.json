@@ -1,30 +1,28 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\bzaffiro\\workrepos\\AsposeAPI\\AsposeAPI.csproj": {}
+    "/home/ctrl_null/WorkRepos/AsposeAPI/AsposeAPI.csproj": {}
   },
   "projects": {
-    "C:\\Users\\bzaffiro\\workrepos\\AsposeAPI\\AsposeAPI.csproj": {
+    "/home/ctrl_null/WorkRepos/AsposeAPI/AsposeAPI.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\bzaffiro\\workrepos\\AsposeAPI\\AsposeAPI.csproj",
+        "projectUniqueName": "/home/ctrl_null/WorkRepos/AsposeAPI/AsposeAPI.csproj",
         "projectName": "AsposeAPI",
-        "projectPath": "C:\\Users\\bzaffiro\\workrepos\\AsposeAPI\\AsposeAPI.csproj",
-        "packagesPath": "C:\\Users\\bzaffiro\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\bzaffiro\\workrepos\\AsposeAPI\\obj\\",
+        "projectPath": "/home/ctrl_null/WorkRepos/AsposeAPI/AsposeAPI.csproj",
+        "packagesPath": "/home/ctrl_null/.nuget/packages/",
+        "outputPath": "/home/ctrl_null/WorkRepos/AsposeAPI/obj/",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
-          "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
+          "/usr/share/dotnet/sdk/NuGetFallbackFolder"
         ],
         "configFilePaths": [
-          "C:\\Users\\bzaffiro\\AppData\\Roaming\\NuGet\\NuGet.Config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+          "/home/ctrl_null/.nuget/NuGet/NuGet.Config"
         ],
         "originalTargetFrameworks": [
           "netcoreapp2.2"
         ],
         "sources": {
-          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
