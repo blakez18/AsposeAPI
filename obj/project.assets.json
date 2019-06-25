@@ -31,6 +31,15 @@
           "lib/netcoreapp2.1/EPPlus.dll": {}
         }
       },
+      "Microsoft.AspNet.Http/1.0.0-rc1-final": {
+        "type": "package",
+        "compile": {
+          "lib/net451/Microsoft.AspNet.Http.dll": {}
+        },
+        "runtime": {
+          "lib/net451/Microsoft.AspNet.Http.dll": {}
+        }
+      },
       "Microsoft.AspNet.WebApi/5.2.7": {
         "type": "package",
         "dependencies": {
@@ -4635,6 +4644,21 @@
         "lib/netstandard2.0/EPPlus.dll",
         "lib/netstandard2.0/EPPlus.xml",
         "readme.txt"
+      ]
+    },
+    "Microsoft.AspNet.Http/1.0.0-rc1-final": {
+      "sha512": "2vVd6xlfDKxl7pln5VOSczVo5bdJK6VLF6LR62Tb+le6e0COju7diAPHujFcXQlX/eLq2GrctN5vbIMeQ6vRTg==",
+      "type": "package",
+      "path": "microsoft.aspnet.http/1.0.0-rc1-final",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "lib/dotnet5.4/Microsoft.AspNet.Http.dll",
+        "lib/dotnet5.4/Microsoft.AspNet.Http.xml",
+        "lib/net451/Microsoft.AspNet.Http.dll",
+        "lib/net451/Microsoft.AspNet.Http.xml",
+        "microsoft.aspnet.http.1.0.0-rc1-final.nupkg.sha512",
+        "microsoft.aspnet.http.nuspec"
       ]
     },
     "Microsoft.AspNet.WebApi/5.2.7": {
@@ -12375,6 +12399,7 @@
     ".NETCoreApp,Version=v2.2": [
       "Aspose.Cells >= 19.5.0",
       "EPPlus >= 4.5.3.2",
+      "Microsoft.AspNet.Http >= 1.0.0-rc1-final",
       "Microsoft.AspNet.WebApi >= 5.2.7",
       "Microsoft.AspNetCore.App >= 2.2.0",
       "Microsoft.AspNetCore.Razor.Design >= 2.2.0",
@@ -12430,6 +12455,10 @@
             "target": "Package",
             "version": "[4.5.3.2, )"
           },
+          "Microsoft.AspNet.Http": {
+            "target": "Package",
+            "version": "[1.0.0-rc1-final, )"
+          },
           "Microsoft.AspNet.WebApi": {
             "target": "Package",
             "version": "[5.2.7, )"
@@ -12469,6 +12498,16 @@
     }
   },
   "logs": [
+    {
+      "code": "NU1701",
+      "level": "Warning",
+      "warningLevel": 1,
+      "message": "Package 'Microsoft.AspNet.Http 1.0.0-rc1-final' was restored using '.NETFramework,Version=v4.6.1' instead of the project target framework '.NETCoreApp,Version=v2.2'. This package may not be fully compatible with your project.",
+      "libraryId": "Microsoft.AspNet.Http",
+      "targetGraphs": [
+        ".NETCoreApp,Version=v2.2"
+      ]
+    },
     {
       "code": "NU1701",
       "level": "Warning",

@@ -1,7 +1,7 @@
 {
   "runtimeTarget": {
     "name": ".NETCoreApp,Version=v2.2",
-    "signature": "3e23c1be95bf6fddf3c932b3827d21c8fbdd3617"
+    "signature": "95c6ddf850f8c0d9a321e66f815fd7f0ca73e7c9"
   },
   "compilationOptions": {
     "defines": [
@@ -26,6 +26,7 @@
         "dependencies": {
           "Aspose.Cells": "19.5.0",
           "EPPlus": "4.5.3.2",
+          "Microsoft.AspNet.Http": "1.0.0-rc1-final",
           "Microsoft.AspNet.WebApi": "5.2.7",
           "Microsoft.AspNetCore.App": "2.2.0",
           "Microsoft.AspNetCore.Razor.Design": "2.2.0",
@@ -71,6 +72,17 @@
         },
         "compile": {
           "lib/netcoreapp2.1/EPPlus.dll": {}
+        }
+      },
+      "Microsoft.AspNet.Http/1.0.0-rc1-final": {
+        "runtime": {
+          "lib/net451/Microsoft.AspNet.Http.dll": {
+            "assemblyVersion": "1.0.0.0",
+            "fileVersion": "1.0.0.11116"
+          }
+        },
+        "compile": {
+          "lib/net451/Microsoft.AspNet.Http.dll": {}
         }
       },
       "Microsoft.AspNet.WebApi/5.2.7": {
@@ -3511,6 +3523,13 @@
       "sha512": "sha512-JoEDkHEcYio3uV8T9+anjfB6x6hirEW9zdO4Ibyd8BDrct0tCp6vMqvKFpAcPNE6TVRG03y1bskFlJXbXiCJxg==",
       "path": "epplus/4.5.3.2",
       "hashPath": "epplus.4.5.3.2.nupkg.sha512"
+    },
+    "Microsoft.AspNet.Http/1.0.0-rc1-final": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-2vVd6xlfDKxl7pln5VOSczVo5bdJK6VLF6LR62Tb+le6e0COju7diAPHujFcXQlX/eLq2GrctN5vbIMeQ6vRTg==",
+      "path": "microsoft.aspnet.http/1.0.0-rc1-final",
+      "hashPath": "microsoft.aspnet.http.1.0.0-rc1-final.nupkg.sha512"
     },
     "Microsoft.AspNet.WebApi/5.2.7": {
       "type": "package",

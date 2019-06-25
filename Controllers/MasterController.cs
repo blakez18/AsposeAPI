@@ -21,20 +21,20 @@ namespace Master.Controllers
         // Under this controller you will create routes to the service for various package examples
         #endregion Namespace_Details
 
-        public async Task<IActionResult> EPPlusExample(IFormFile file)
+        public async Task<IActionResult> EPPlusExample(List<IFormFile> file)
         {        
             //extention = "DB_Data" + extention;
             String extention = "DB_Data.xlsx";
             EPlusPlus service = new EPlusPlus();
             FileorJson foj = new FileorJson();
 
-            if (file == null || file.Length == 0)
+            if (file == null)
             {
                 SqlLists tempjson = new SqlLists();
                 foj.PCCList = GetAndConvJson(tempjson);
                     ReturnStreamAsFile(service.EPPlusDatatoFormat(foj), extention);
             } else {
-               foj.FileDetails = file;
+               foj.FileDetails = file[0];
                     ReturnStreamAsFile(service.EPPlusDatatoFormat(foj), extention);
                 // added a comment
             }
