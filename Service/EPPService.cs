@@ -1,4 +1,3 @@
-using TempJson.Models;
 using Microsoft.AspNetCore.Http;
 using System.IO;
 using OfficeOpenXml;
@@ -6,111 +5,100 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace EPPService.Service
+using Containers.Models;
+using OfficeOpenXml.Drawing.Chart;
+using Microsoft.Office.Interop.Excel;
+using System.Reflection;
+using Aspose.Cells;
 
+namespace EPPService.Service
 {
     public class EPlusPlus
     {
         private static object xlWorkSheet;
         private static object wsConfig;
-        #region FiletoWorkSeet
-        public tempJson EPPFiletoWS(FileInfo fi, IFormFile file)
+        private static object xls;
+        private static int missing;
+        private static object xlDirection;
+        private object row;
+
+        public static object App { get; private set; }
+        public static object Globals { get; private set; }
+
+        public Byte[] EPPlusDatatoFormat(FileorJson foj)
         {
-            tempJson tempjson = new tempJson();
-
-            switch (fi.Extension)
+            //FileInfo nf = new FileInfo("C:\\Users\\bzaffiro\\workrepos\\New_Data.xlsx");
+            FileInfo newFile = new FileInfo(@"Test.xlsx");
+            using (ExcelPackage ex = new ExcelPackage(newFile))
             {
-                case ".xlsx":
-                    using (ExcelPackage ex = new ExcelPackage())
-                    {
-                        ExcelWorksheet ws = ex.Workbook.Worksheets.Add("Sheet 1");
-                        ExcelWorksheet ws2 = ex.Workbook.Worksheets.Add("Sheet 2"); // Create WS
-                        var format = new ExcelTextFormat { Delimiter = '\t', EOL = "\r" };
-                        ws.Cells["A1"].LoadFromText(fi, format);
-                        WStoExport(ex, tempjson);
-                    }
-                    break;
-                case ".csv":
+                int wsCount = ex.Workbook.Worksheets.Count() - 1;
+                while (wsCount >= 0)
+                {
+                    ex.Workbook.Worksheets.Delete(wsCount);
+                    wsCount -= 1;
+                }
 
-                    break;
+                ex.Workbook.Worksheets.Add("Chart");
+                var sheet = ex.Workbook.Worksheets.Add("Data_Cells");
+                var format = new ExcelTextFormat { Delimiter = '\t', EOL = "\r" };
+
+
+                // Microsoft.Office.Interop.Excel.Range r = ex.Workbook.Worksheets[1].Select("A" + row.ToString(), "A" + row.ToString()).EntireRow;
+                //r.EntireRow.Insert(Microsoft.Office.Interop.Excel.XlInsertShiftDirection.xlShiftDown);
+
+
+                //Microsoft.Office.Interop.Excel.Range a1 = (ExcelWorksheet.Row) (ex.Workbook.Worksheets[1].InsertRow(1,1));
+                //a1.EntireRow.Insert(Microsoft.Office.Interop.Excel.XlInsertShiftDirection.xlShiftDown, 
+                //Type.Missing );
+
+                if (foj.File != null)
+                {
+                    ex.Workbook.Worksheets[1].Cells["A1"].LoadFromText(foj.File.Extension, format); // might not work
+                }
+                else if (foj.PCCList != null)
+                {
+                    ex.Workbook.Worksheets[1].Cells.LoadFromCollection(foj.PCCList.position, PrintHeaders: true); // loads only position
+                                                                                                                  // create header then apply data to row 0
+                                                                                                                  //  List<string> headerDets = new List<string>();
+                                                                                                                  // foj.PCCList.position.FindIndex(x => x.)
+                                                                                                                  //ex.Workbook.Worksheets[1].SelectedRange["A1:A1"].l("a", "b", "c", "d");
+
+                }
+                CreatingChart(ex);
+                ex.Save();
+                return ex.GetAsByteArray();
             }
-            return null;
         }
-        #endregion FileJsontoWorkSeet
 
-        #region JsontoWorkSheet
-        public ExcelPackage EPPJsontoWS(tempJson cList) // List<t>
+        public static ExcelPackage CreatingChart(ExcelPackage ex) // Create Chart code
         {
+            List<string> range = new List<string>();
+            int loopCounter = 0;
 
-            using (ExcelPackage ex = new ExcelPackage())
+            ExcelChart chart = ex.Workbook.Worksheets[0].Drawings.AddChart("Cool Chart", eChartType.Pie3D); //adding chart
+
+            // Find our ranges
+            int headerRowPos = ex.Workbook.Worksheets[1].Cells.Where(cell => !cell.Value.ToString().Equals("")).First().End.Row;
+            int lastRowPos = ex.Workbook.Worksheets[1].Cells.Where(cell => !cell.Value.ToString().Equals("")).Last().End.Row;
+            int firstColumnPos = ex.Workbook.Worksheets[1].Cells.Where(cell => !cell.Value.ToString().Equals("")).First().End.Column;
+            int lastColumnPos = ex.Workbook.Worksheets[1].Cells.Where(cell => !cell.Value.ToString().Equals("")).Last().End.Column;
+
+            // Set Header String
+            while (lastRowPos >= loopCounter)
             {
-                return WStoExport(ex, cList);
+                // Range.add("A2:J2");
+                range.Add((nsEnum.AlphabetEPP)firstColumnPos + (loopCounter + 1) + ":" + (nsEnum.AlphabetEPP)lastColumnPos + (loopCounter + 1));
+                loopCounter++;
             }
-        }
-        #endregion FiletoWork
 
-        #region Functions
-        public static ExcelPackage WStoExport(ExcelPackage ex, tempJson cList) // make chart here 
-        {
-            List<string> tempString = new List<string>();
-            FileInfo nf = new FileInfo("C:\\Users\\bzaffiro\\workrepos\\New_Data.xlsx");
-            if (cList == null)
-                return null;
-
-            ex.Workbook.Worksheets.Add("Cool Tab"); // Adds worksheet to workbook     
-            ex.Workbook.Worksheets.Add("Data_File");
-
-            // Adding data into Tab 2: Worksheet 1 == Data_File
-            ex.Workbook.Worksheets[1].Cells.LoadFromCollection(cList.position);// puts position List<t> to worksheet 2                        
-                                                                               //ExcelRange data = ex.Workbook.Worksheets[1].Cells;
-                                                                               //ex = GetWSOneVals(ex);
-                                                                               // var data2 = data.
-            ex = CreatingChart(ex, cList);
-            // example to load code into list
-            cList.position.ForEach(x => // thats how you loop with Linq
+            // Loop through our lest and set chart data
+            String headerRowRef = (nsEnum.AlphabetEPP)headerRowPos + Convert.ToString(headerRowPos) + ":" + (nsEnum.AlphabetEPP)lastColumnPos + Convert.ToString(headerRowPos); // "A1:J1" 
+            range.ForEach(x =>
             {
-                tempString.Add(Convert.ToString(x.CompanyId)); //looping through all of the candidateIds
+                chart.Series.Add(x, headerRowRef);
             });
-            ex.SaveAs(nf);
-            return ex;
-        }
-        public static ExcelPackage CreatingChart(ExcelPackage ex, tempJson cList) // Create Chart code
-        {
-            var chart = ex.Workbook.Worksheets[0].Drawings.AddChart("Cool Chart", OfficeOpenXml.Drawing.Chart.eChartType.Line); //adding chart
-            int lastRow = ex.Workbook.Worksheets[1].Cells.Where(cell => !cell.Value.ToString().Equals("")).Last().End.Row;
-            int lastColumn = ex.Workbook.Worksheets[1].Cells.Where(cell => !cell.Value.ToString().Equals("")).Last().End.Column;
-            var a = "A";
-            var range1 = string.Concat(a, lastRow);
-            var range2 = string.Concat(a, lastColumn);
-            chart.Series.Add(range1, range2);
-
-           // chart.Series.Add(ex.Workbook.Worksheets[1].Cells["A1:A + lastRow"], ex.Workbook.Worksheets[1].Cells["A1:A2"]);
-
-            // Loop to determine chart
-            #region code
-            // foreach (var cell in ex.Workbook.Worksheets[1].Cells[1, 1, 1, ex.Workbook.Worksheets[1].Dimension.End.Column])
-            // {
-            //     var data = cell.Value;
-
-            //     //    for (int i = 2; i <= ex.Workbook.Worksheets[1].Dimension.End.Row; i++) {
-
-            //     // Enumerable.Range(ex.Workbook.Worksheets[1].Dimension.Start.Row + 1, ex.Workbook.Worksheets[1].Dimension.End.Row).Select(i => Convert.ToString(ex.Workbook.Worksheets[1].Cells[i, 1].Value));
-
-            //     //ExcelRange range = ex.Workbook.Worksheets[1].Cells;
-            //     // chart.Series.Add(ex.Workbook.Worksheets[1].Cells[data], ex.Workbook.Worksheets[1].Cells[data]);
-            //     // }
-            // }
-            #endregion code
-
-            // ex.Workbook.Worksheets[0].Drawings[0].SetSize(800, 600);
-            //ex.Workbook.Worksheets[0].Drawings[0]. System.Drawing.Color.Green;
-
-            //myChart.Border.Fill.Color = System.Drawing.Color.Green;
-            //consumptionWorksheet.Cells[1, 1].LoadFromCollection(consumptionComparisonDetails, false, OfficeOpenXml.Table.TableStyles.Medium1);  
 
             return ex;
         }
     }
-
-    #endregion Functions
 }
