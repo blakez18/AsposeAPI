@@ -33,15 +33,15 @@ namespace EPPService.Service
             if (foj.IsCustom == true)
             {
                 using (ExcelPackage ex = new ExcelPackage(fi))
-                {            
+                {
                     if (ex.Workbook.Worksheets[1].Name == "Data_Cells")
                     {
+                        ex.Workbook.Worksheets.Delete(0);
                         ex.Workbook.Worksheets.Add("Chart2");
                         ex.Workbook.Worksheets.Copy("Data_Cells", "Data_Cells2");
                         ex.Workbook.Worksheets.Delete(0);
-                        ex.Workbook.Worksheets.Delete(1);
                         ex.Workbook.Worksheets[0].Name = "Chart";
-                        ex.Workbook.Worksheets[1].Name = "Data_Cells";                        
+                        ex.Workbook.Worksheets[1].Name = "Data_Cells";
                     }
                     CreatingChart(ex);
                     ex.Save();
