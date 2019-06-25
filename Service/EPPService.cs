@@ -31,6 +31,8 @@ namespace EPPService.Service
             FileInfo newFile = new FileInfo(@"Test.xlsx");
             using (ExcelPackage ex = new ExcelPackage(newFile))
             {
+                //================= Setup WorkSheet ==================//
+                // Remove WS Data from staged
                 int wsCount = ex.Workbook.Worksheets.Count() - 1;
                 while (wsCount >= 0)
                 {
@@ -42,17 +44,17 @@ namespace EPPService.Service
                 var sheet = ex.Workbook.Worksheets.Add("Data_Cells");
                 var format = new ExcelTextFormat { Delimiter = '\t', EOL = "\r" };
 
-
-                // Microsoft.Office.Interop.Excel.Range r = ex.Workbook.Worksheets[1].Select("A" + row.ToString(), "A" + row.ToString()).EntireRow;
-                //r.EntireRow.Insert(Microsoft.Office.Interop.Excel.XlInsertShiftDirection.xlShiftDown);
-
-                //Microsoft.Office.Interop.Excel.Range a1 = (ExcelWorksheet.Row) (ex.Workbook.Worksheets[1].InsertRow(1,1));
-                //a1.EntireRow.Insert(Microsoft.Office.Interop.Excel.XlInsertShiftDirection.xlShiftDown, 
-                //Type.Missing );
-
+                //================= Read or Load ==================//
                 if (foj.File != null)
                 {
-                    ex.Workbook.Worksheets[1].Cells["A1"].LoadFromText(foj.File.Extension, format); // might not work
+                    if (foj.IsCustom)
+                    {
+
+                    }
+                    else
+                    {
+                        ex.Workbook.Worksheets[1].Cells["A1"].LoadFromText(foj.File.Extension, format); // might not work
+                    }
                 }
                 else if (foj.PCCList != null)
                 {
@@ -98,35 +100,36 @@ namespace EPPService.Service
             return ex;
         }
 
-        public static ExcelPackage ChartExample(ExcelPackage ex) {
+        public static ExcelPackage ChartExample(ExcelPackage ex)
+        {
 
             // Exxample 1
             ExcelChart chart0 = ex.Workbook.Worksheets[0].Drawings.AddChart("chartZero", eChartType.Pie3D); //adding chart
             chart0.Series.Add("=Data_Cells!$A$2:$J$6", "=Data_Cells!$A$1:$J$1");
             chart0.Title.Text = "Test Chart 0";
             chart0.SetSize(400, 400);
-            chart0.SetPosition(0,0,0,0);
+            chart0.SetPosition(0, 0, 0, 0);
 
             // Example 2
             ExcelChart chart1 = ex.Workbook.Worksheets[0].Drawings.AddChart("chartOne", eChartType.PieExploded3D); //adding chart
             chart1.Series.Add("=Data_Cells!$A$2:$J$6", "Data_Cells!$A$1:$J$1");
             chart1.Title.Text = "Test Chart 1";
             chart1.SetSize(400, 400);
-            chart1.SetPosition(23,0,0,0);
+            chart1.SetPosition(23, 0, 0, 0);
 
             // Example 3
             ExcelChart chart2 = ex.Workbook.Worksheets[0].Drawings.AddChart("chartTwo", eChartType.XYScatterLinesNoMarkers); //adding chart
             chart2.Series.Add("=Data_Cells!$A$2:$J$6", "Data_Cells!$A$1:$J$1");
             chart2.Title.Text = "Test Chart 2";
             chart2.SetSize(400, 400);
-            chart2.SetPosition(0,0,10,0);
+            chart2.SetPosition(0, 0, 10, 0);
 
             // Example 4
             ExcelChart chart3 = ex.Workbook.Worksheets[0].Drawings.AddChart("chartThree", eChartType.DoughnutExploded); //adding chart
             chart3.Series.Add("=Data_Cells!$A$2:$J$6", "Data_Cells!$A$1:$J$1");
             chart3.Title.Text = "Test Chart 3";
             chart3.SetSize(400, 400);
-            chart3.SetPosition(0,0,10,0);
+            chart3.SetPosition(0, 0, 10, 0);
 
             return ex;
         }
