@@ -28,23 +28,21 @@ namespace EPPService.Service
         public Byte[] EPPlusDatatoFormat(FileorJson foj)
         {
             var format = new ExcelTextFormat { Delimiter = '\t', EOL = "\r" };
-
+            var fi = new FileInfo(@"TestCustom.xlsx");
             // Check for file, create workbook, send to function
-            if (foj.File != null)
+            if (foj.IsCustom == true)
             {
-                using (ExcelPackage ex = new ExcelPackage())
+                using (ExcelPackage ex = new ExcelPackage(fi))
                 {
-                    using (var stream = File.OpenRead(foj.File.FullName))
-                        ex.Load(stream);
-
-                    if (ex.Workbook.Worksheets[1].Name != "Data_Cells")
+                    if (ex.Workbook.Worksheets[1].Name == "Data_Cells")
                     {
-                        ex.Workbook.Worksheets.Add("Charts");
-                        ex.Workbook.Worksheets.Add("Data_Cells");
-                        ex.Workbook.Worksheets.Copy("Data_Cells", ex.Workbook.Worksheets[0].Name);
                         ex.Workbook.Worksheets.Delete(0);
+                        ex.Workbook.Worksheets.Add("Chart2");
+                        ex.Workbook.Worksheets.Copy("Data_Cells", "Data_Cells2");
+                        ex.Workbook.Worksheets.Delete(0);
+                        ex.Workbook.Worksheets[0].Name = "Chart";
+                        ex.Workbook.Worksheets[1].Name = "Data_Cells";
                     }
-
                     CreatingChart(ex);
                     ex.Save();
                     return ex.GetAsByteArray();
@@ -88,7 +86,7 @@ namespace EPPService.Service
 
             string range = "=Data_Cells!$";
             range += (nsEnum.LettEnums)firstColumnPos + "$" + Convert.ToString(firstColumnPos + 1);
-            range += ":$" + (nsEnum.LettEnums)lastColumnPos + "$" + Convert.ToString(lastColumnPos);
+            range += ":$" + (nsEnum.LettEnums)lastColumnPos + "$" + Convert.ToString(lastRowPos);
             String headerRow = "=Data_Cells!$";
             headerRow += (nsEnum.LettEnums)firstColumnPos + "$" + Convert.ToString(firstColumnPos);
             headerRow += ":$" + (nsEnum.LettEnums)lastColumnPos + "$" + Convert.ToString(firstColumnPos);
